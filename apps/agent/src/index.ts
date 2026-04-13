@@ -1,6 +1,7 @@
 import { Mastra } from "@mastra/core";
 import express from "express";
 import { env } from "./env.js";
+import { runContentGenerationAgent } from "./agents/content-generation.js";
 import { runRepoAnalysisAgent } from "./agents/repo-analysis.js";
 
 const mastra = new Mastra({
@@ -23,6 +24,16 @@ app.post("/analyze-repo", async (req, res) => {
   } catch (error) {
     console.error("Repo analysis failed", error);
     res.status(500).json({ ok: false, error: "Failed to analyze repository" });
+  }
+});
+
+app.post("/generate-content", async (req, res) => {
+  try {
+    const result = await runContentGenerationAgent(req.body);
+    res.json(result);
+  } catch (error) {
+    console.error("Content generation failed", error);
+    res.status(500).json({ ok: false, error: "Failed to generate content" });
   }
 });
 

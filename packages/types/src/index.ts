@@ -14,6 +14,9 @@ export const CONTENT_TYPES = [
   "tweet",
   "thread",
   "linkedin",
+  "reddit",
+  "instagram",
+  "tiktok",
   "article",
 ] as const;
 export type ContentType = (typeof CONTENT_TYPES)[number];
