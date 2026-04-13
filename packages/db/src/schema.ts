@@ -171,6 +171,18 @@ export const contentGenerationLog = pgTable("content_generation_log", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+export const notification = pgTable("notification", {
+  id: text("id").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  type: text("type").notNull(),
+  title: text("title").notNull(),
+  body: text("body").notNull(),
+  readAt: timestamp("read_at"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
 // ─── Relations ──────────────────────────────────────────────────────────────
 
 export const userRelations = relations(user, ({ many, one }) => ({
@@ -183,6 +195,7 @@ export const userRelations = relations(user, ({ many, one }) => ({
   twitterConnection: one(twitterConnection),
   content: many(content),
   contentGenerationLogs: many(contentGenerationLog),
+  notifications: many(notification),
 }));
 
 export const sessionRelations = relations(session, ({ one }) => ({
@@ -256,3 +269,7 @@ export const contentGenerationLogRelations = relations(
     }),
   }),
 );
+
+export const notificationRelations = relations(notification, ({ one }) => ({
+  user: one(user, { fields: [notification.userId], references: [user.id] }),
+}));

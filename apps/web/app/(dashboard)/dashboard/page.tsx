@@ -2,18 +2,37 @@
 
 import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { ContentCard } from "@/components/content-card";
+import { ContentFilters } from "@/components/content-filters";
+
+type ContentItem = {
+  id: string;
+  type: string;
+  body: string;
+  status: string;
+};
 
 export default function DashboardPage() {
   const { data: session, isPending } = authClient.useSession();
+  const [items, setItems] = useState<ContentItem[]>([]);
+  const [status, setStatus] = useState("");
+  const [isGenerating, setIsGenerating] = useState(false);
+
+  async function loadContent() {
+    const response = await fetch(
+      status ? `/api/content?status=${encodeURIComponent(status)}` : "/api/content",
+    );
+    if (!response.ok) return;
+    const data = (await response.json()) as { content: ContentItem[] };
+    setItems(data.content);
+  }
+
+  useEffect(() => {
+    if (!session) return;
+    void loadContent();
+  }, [session, status]);
 
   if (isPending) {
     return (
@@ -40,41 +59,69 @@ export default function DashboardPage() {
             Welcome back, {session.user.name ?? session.user.email}
           </p>
         </div>
-        <Button
-          variant="outline"
-          onClick={async () => {
-            await authClient.signOut();
-            window.location.href = "/login";
-          }}
-        >
-          Sign out
-        </Button>
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            onClick={async () => {
+              await authClient.signOut();
+              window.location.href = "/login";
+            }}
+          >
+            Sign out
+          </Button>
+          <Button
+            disabled={isGenerating}
+            onClick={async () => {
+              setIsGenerating(true);
+              await fetch("/api/content/generate", { method: "POST" });
+              await loadContent();
+              setIsGenerating(false);
+            }}
+          >
+            Generate Now
+          </Button>
+        </div>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Getting Started</CardTitle>
-          <CardDescription>
-            Complete these steps to start generating content
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex items-center gap-3">
-            <Badge variant="default">1</Badge>
-            <Link className="underline" href="/dashboard/repos">
-              Install the GitHub App on your repository
-            </Link>
-          </div>
-          <div className="flex items-center gap-3">
-            <Badge variant="secondary">2</Badge>
-            <span>Complete onboarding preferences</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <Badge variant="secondary">3</Badge>
-            <span>Add your LLM API key</span>
-          </div>
-        </CardContent>
-      </Card>
+      <div className="mb-6 space-y-2">
+        <Link className="text-sm underline" href="/dashboard/repos">
+          Manage repositories
+        </Link>
+        <br />
+        <Link className="text-sm underline" href="/dashboard/settings/keys">
+          Manage API keys
+        </Link>
+        <br />
+        <Link className="text-sm underline" href="/step/1">
+          Continue onboarding
+        </Link>
+      </div>
+
+      <div className="mb-4">
+        <ContentFilters status={status} setStatus={setStatus} />
+      </div>
+      <div className="space-y-3">
+        {items.map((item) => (
+          <ContentCard
+            key={item.id}
+            item={item}
+            onApprove={async (id) => {
+              await fetch("/api/content", {
+                method: "PATCH",
+                headers: { "content-type": "application/json" },
+                body: JSON.stringify({ id, action: "approve" }),
+              });
+              await loadContent();
+            }}
+            onDiscard={async (id) => {
+              await fetch(`/api/content?id=${encodeURIComponent(id)}`, {
+                method: "DELETE",
+              });
+              await loadContent();
+            }}
+          />
+        ))}
+      </div>
     </div>
   );
 }
