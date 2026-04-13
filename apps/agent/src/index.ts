@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { Mastra } from "@mastra/core";
 import express from "express";
 import { runContentGenerationAgent } from "./agents/content-generation";

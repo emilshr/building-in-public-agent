@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express from "express";
 import { serve } from "inngest/express";
 import { env } from "./env.js";

@@ -13,6 +13,7 @@
   "dependencies": {
     "@repo/db": "workspace:*",
     "@repo/types": "workspace:*",
+    "dotenv": "catalog:",
     "drizzle-orm": "catalog:",
     "express": "catalog:",
     "inngest": "catalog:",
