@@ -232,14 +232,14 @@ Sets up the monorepo structure, database, auth, and shared packages. Everything 
 
 **1.1 Monorepo Restructuring**
 
-- Remove `apps/docs` (unused starter)
-- Configure `apps/web` as the main Next.js 16 app
-- Create `apps/worker` — Node.js service with Express, Inngest SDK
-- Create `apps/agent` — Mastra service
-- Create `packages/db` — Drizzle schema, client, migrations
-- Create `packages/types` — Shared TypeScript types (content states, API key providers, etc.)
-- Add `node-library.json` to `@repo/typescript-config` for non-Next packages
-- Update root `turbo.json` — add `dist/**` outputs for worker/agent builds
+- [x] Remove `apps/docs` (unused starter)
+- [x] Configure `apps/web` as the main Next.js 16 app
+- [x] Create `apps/worker` — Node.js service with Express, Inngest SDK
+- [x] Create `apps/agent` — Mastra service
+- [x] Create `packages/db` — Drizzle schema, client, migrations
+- [x] Create `packages/types` — Shared TypeScript types (content states, API key providers, etc.)
+- [x] Add `node-library.json` to `@repo/typescript-config` for non-Next packages
+- [x] Update root `turbo.json` — add `dist/**` outputs for worker/agent builds
 
 Files to create/modify:
 
@@ -264,19 +264,19 @@ turbo.json                                      # modify — add dist outputs
 
 **1.2 Database Schema + Migrations**
 
-- Define all tables in `packages/db/src/schema.ts` (see ERD above)
-- Better Auth tables: run `npx @better-auth/cli generate` to get the exact schema, then integrate into Drizzle schema
-- Run `drizzle-kit generate` from `packages/db` to create initial migration
-- Validate migration applies cleanly to a fresh Postgres instance
+- [x] Define all tables in `packages/db/src/schema.ts` (see ERD above)
+- [x] Better Auth tables: run `npx @better-auth/cli generate` to get the exact schema, then integrate into Drizzle schema
+- [x] Run `drizzle-kit generate` from `packages/db` to create initial migration
+- [x] Validate migration applies cleanly to a fresh Postgres instance
 
 **1.3 Authentication (Better Auth + GitHub)**
 
-- Install Better Auth in `apps/web`
-- Configure auth server in `apps/web/lib/auth.ts` with Drizzle adapter and GitHub social provider
-- Mount catch-all route at `apps/web/app/api/auth/[...all]/route.ts` using `toNextJsHandler`
-- Create auth client in `apps/web/lib/auth-client.ts` using `createAuthClient()`
-- Add session middleware for protected routes
-- Zod validation for auth env vars: `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`
+- [x] Install Better Auth in `apps/web`
+- [x] Configure auth server in `apps/web/lib/auth.ts` with Drizzle adapter and GitHub social provider
+- [x] Mount catch-all route at `apps/web/app/api/auth/[...all]/route.ts` using `toNextJsHandler`
+- [x] Create auth client in `apps/web/lib/auth-client.ts` using `createAuthClient()`
+- [x] Add session middleware for protected routes
+- [x] Zod validation for auth env vars: `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`
 
 Files:
 
@@ -290,10 +290,10 @@ apps/web/src/env.ts                             # new — Zod env validation
 
 **1.4 shadcn/ui Setup**
 
-- Run `npx shadcn@latest init --monorepo` from repo root
-- Configure `packages/ui/components.json` with proper aliases
-- Install base components: Button, Card, Input, Toggle, Calendar, Dialog, DropdownMenu, Badge, Tabs
-- Verify cross-app imports work from `apps/web`
+- [x] Run `npx shadcn@latest init --monorepo` from repo root
+- [x] Configure `packages/ui/components.json` with proper aliases
+- [x] Install base components: Button, Card, Input, Toggle, Calendar, Dialog, DropdownMenu, Badge, Tabs
+- [x] Verify cross-app imports work from `apps/web`
 
 ---
 

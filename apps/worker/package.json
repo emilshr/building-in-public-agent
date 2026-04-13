@@ -14,7 +14,7 @@
     "@repo/types": "workspace:*",
     "express": "^5.1.0",
     "inngest": "^3.35.0",
-    "zod": "^3.25.0"
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",

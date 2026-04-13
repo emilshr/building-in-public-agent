@@ -13,7 +13,7 @@
     "@mastra/core": "^0.10.0",
     "@repo/db": "workspace:*",
     "@repo/types": "workspace:*",
-    "zod": "^3.25.0"
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",

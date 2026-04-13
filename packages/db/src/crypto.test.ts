@@ -40,7 +40,7 @@ describe("encryptApiKey / decryptApiKey", () => {
     const encrypted = encryptApiKey(plaintext, userId);
 
     const tampered = Buffer.from(encrypted, "base64");
-    tampered[tampered.length - 1] ^= 0xff;
+    tampered.writeUInt8(tampered[tampered.length - 1]! ^ 0xff, tampered.length - 1);
 
     expect(() =>
       decryptApiKey(tampered.toString("base64"), userId),

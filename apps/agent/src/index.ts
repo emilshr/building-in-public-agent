@@ -1,7 +1,9 @@
 import { Mastra } from "@mastra/core";
 
-export const mastra = new Mastra({
+const mastra = new Mastra({
   agents: {},
 });
+
+export { mastra };
 
 console.log("Mastra agent service initialized");
