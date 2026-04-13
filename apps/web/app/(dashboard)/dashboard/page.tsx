@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
 
 export default function DashboardPage() {
   const { data: session, isPending } = authClient.useSession();
@@ -60,7 +61,9 @@ export default function DashboardPage() {
         <CardContent className="space-y-4">
           <div className="flex items-center gap-3">
             <Badge variant="default">1</Badge>
-            <span>Install the GitHub App on your repository</span>
+            <Link className="underline" href="/dashboard/repos">
+              Install the GitHub App on your repository
+            </Link>
           </div>
           <div className="flex items-center gap-3">
             <Badge variant="secondary">2</Badge>
