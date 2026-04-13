@@ -1,4 +1,7 @@
 import { Mastra } from "@mastra/core";
+import express from "express";
+import { env } from "./env.js";
+import { runRepoAnalysisAgent } from "./agents/repo-analysis.js";
 
 const mastra = new Mastra({
   agents: {},
@@ -6,4 +9,23 @@ const mastra = new Mastra({
 
 export { mastra };
 
-console.log("Mastra agent service initialized");
+const app = express();
+app.use(express.json());
+
+app.get("/health", (_req, res) => {
+  res.json({ status: "ok" });
+});
+
+app.post("/analyze-repo", async (req, res) => {
+  try {
+    const result = await runRepoAnalysisAgent(req.body);
+    res.json(result);
+  } catch (error) {
+    console.error("Repo analysis failed", error);
+    res.status(500).json({ ok: false, error: "Failed to analyze repository" });
+  }
+});
+
+app.listen(env.PORT, () => {
+  console.log(`Mastra agent service initialized on ${env.PORT}`);
+});

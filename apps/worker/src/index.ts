@@ -2,6 +2,7 @@ import express from "express";
 import { serve } from "inngest/express";
 import { env } from "./env.js";
 import { inngest } from "./inngest.js";
+import { reanalyzeRepoOnPush } from "./functions/reanalyze-repo.js";
 
 const app = express();
 
@@ -15,7 +16,7 @@ app.get("/health", (_req, res) => {
 // Inngest endpoint — functions will be registered here as they're built
 app.use(
   "/api/inngest",
-  serve({ client: inngest, functions: [] }),
+  serve({ client: inngest, functions: [reanalyzeRepoOnPush] }),
 );
 
 app.listen(env.PORT, () => {

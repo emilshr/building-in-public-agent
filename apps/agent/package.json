@@ -13,10 +13,13 @@
     "@mastra/core": "^0.10.0",
     "@repo/db": "workspace:*",
     "@repo/types": "workspace:*",
+    "drizzle-orm": "^0.44.0",
+    "express": "^5.1.0",
     "zod": "^3.25.76"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
+    "@types/express": "^5.0.3",
     "@types/node": "^22.15.3",
     "tsx": "^4.19.0",
     "typescript": "5.9.2"
