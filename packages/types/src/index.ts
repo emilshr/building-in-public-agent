@@ -22,11 +22,7 @@ export const CONTENT_TYPES = [
 export type ContentType = (typeof CONTENT_TYPES)[number];
 
 // LLM providers for BYOK
-export const API_KEY_PROVIDERS = [
-  "openai",
-  "anthropic",
-  "openrouter",
-] as const;
+export const API_KEY_PROVIDERS = ["openai", "anthropic", "openrouter"] as const;
 export type ApiKeyProvider = (typeof API_KEY_PROVIDERS)[number];
 
 // Tone options

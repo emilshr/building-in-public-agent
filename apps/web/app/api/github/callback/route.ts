@@ -1,6 +1,6 @@
+import { randomUUID } from "node:crypto";
 import { db, githubInstallation, repo } from "@repo/db";
 import { and, eq } from "drizzle-orm";
-import { randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
 import { getInstallationOctokit } from "@/lib/github";
 import { getCurrentUserId } from "@/lib/session";
@@ -29,9 +29,12 @@ export async function GET(request: Request) {
 
   const octokit = await getInstallationOctokit(installationId);
   const installationResponse = await octokit.request("GET /installation");
-  const reposResponse = await octokit.request("GET /installation/repositories", {
-    per_page: 100,
-  });
+  const reposResponse = await octokit.request(
+    "GET /installation/repositories",
+    {
+      per_page: 100,
+    },
+  );
 
   const installationRecordId = randomUUID();
   const existingInstallation = await db.query.githubInstallation.findFirst({
@@ -60,7 +63,10 @@ export async function GET(request: Request) {
   await Promise.all(
     reposResponse.data.repositories.map(async (repository) => {
       const existingRepo = await db.query.repo.findFirst({
-        where: and(eq(repo.userId, userId), eq(repo.fullName, repository.full_name)),
+        where: and(
+          eq(repo.userId, userId),
+          eq(repo.fullName, repository.full_name),
+        ),
         columns: { id: true },
       });
 
@@ -77,13 +83,13 @@ export async function GET(request: Request) {
       }
 
       return db.insert(repo).values({
-          id: randomUUID(),
-          userId,
-          githubInstallationId,
-          fullName: repository.full_name,
-          defaultBranch: repository.default_branch ?? "main",
-          cloneUrl: repository.clone_url,
-        });
+        id: randomUUID(),
+        userId,
+        githubInstallationId,
+        fullName: repository.full_name,
+        defaultBranch: repository.default_branch ?? "main",
+        cloneUrl: repository.clone_url,
+      });
     }),
   );
 

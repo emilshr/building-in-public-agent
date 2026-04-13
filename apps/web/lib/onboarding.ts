@@ -1,4 +1,8 @@
-import { API_KEY_PROVIDERS, CONTENT_TYPES, GENERATION_FREQUENCIES } from "@repo/types";
+import {
+  API_KEY_PROVIDERS,
+  CONTENT_TYPES,
+  GENERATION_FREQUENCIES,
+} from "@repo/types";
 import { z } from "zod";
 
 export const ONBOARDING_STEP_MIN = 1;

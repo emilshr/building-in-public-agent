@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { generateContentWorkflow } from "../workflows/generate-content.js";
+import { generateContentWorkflow } from "../workflows/generate-content";
 
 const contentGenerationInput = z.object({
   userId: z.string().min(1),

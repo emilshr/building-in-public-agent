@@ -1,8 +1,8 @@
+import { execFile } from "node:child_process";
 import { mkdir, rm } from "node:fs/promises";
 import path from "node:path";
-import { execFile } from "node:child_process";
 import { promisify } from "node:util";
-import { env } from "../env.js";
+import { env } from "../env";
 
 const execFileAsync = promisify(execFile);
 

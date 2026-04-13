@@ -1,4 +1,4 @@
-import { db, content } from "@repo/db";
+import { content, db } from "@repo/db";
 import { and, desc, eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { ContentCalendar } from "@/components/content-calendar";

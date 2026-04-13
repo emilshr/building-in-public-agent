@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { storeTwitterConnection } from "@/lib/twitter";
 import { getCurrentUserId } from "@/lib/session";
+import { storeTwitterConnection } from "@/lib/twitter";
 import { env } from "@/src/env";
 
 type TokenResponse = {
@@ -21,10 +21,18 @@ export async function GET(request: Request) {
   const codeVerifier = cookieStore.get("twitter_code_verifier")?.value;
 
   if (!code || !state || state !== expectedState || !codeVerifier) {
-    return NextResponse.redirect(new URL("/dashboard/settings/twitter?error=oauth", request.url));
+    return NextResponse.redirect(
+      new URL("/dashboard/settings/twitter?error=oauth", request.url),
+    );
   }
-  if (!env.TWITTER_CLIENT_ID || !env.TWITTER_CLIENT_SECRET || !env.TWITTER_REDIRECT_URI) {
-    return NextResponse.redirect(new URL("/dashboard/settings/twitter?error=config", request.url));
+  if (
+    !env.TWITTER_CLIENT_ID ||
+    !env.TWITTER_CLIENT_SECRET ||
+    !env.TWITTER_REDIRECT_URI
+  ) {
+    return NextResponse.redirect(
+      new URL("/dashboard/settings/twitter?error=config", request.url),
+    );
   }
 
   const tokenResp = await fetch("https://api.twitter.com/2/oauth2/token", {
@@ -39,7 +47,9 @@ export async function GET(request: Request) {
     }),
   });
   if (!tokenResp.ok) {
-    return NextResponse.redirect(new URL("/dashboard/settings/twitter?error=token", request.url));
+    return NextResponse.redirect(
+      new URL("/dashboard/settings/twitter?error=token", request.url),
+    );
   }
 
   const tokenData = (await tokenResp.json()) as TokenResponse;
@@ -47,7 +57,9 @@ export async function GET(request: Request) {
     headers: { Authorization: `Bearer ${tokenData.access_token}` },
   });
   if (!meResp.ok) {
-    return NextResponse.redirect(new URL("/dashboard/settings/twitter?error=profile", request.url));
+    return NextResponse.redirect(
+      new URL("/dashboard/settings/twitter?error=profile", request.url),
+    );
   }
   const meData = (await meResp.json()) as {
     data: { id: string; username: string };
@@ -63,5 +75,7 @@ export async function GET(request: Request) {
       ? new Date(Date.now() + tokenData.expires_in * 1000)
       : null,
   });
-  return NextResponse.redirect(new URL("/dashboard/settings/twitter?connected=1", request.url));
+  return NextResponse.redirect(
+    new URL("/dashboard/settings/twitter?connected=1", request.url),
+  );
 }

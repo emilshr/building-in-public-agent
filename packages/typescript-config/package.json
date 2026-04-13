@@ -6,7 +6,13 @@
   "publishConfig": {
     "access": "public"
   },
+  "scripts": {
+    "lint": "biome check ."
+  },
   "dependencies": {
     "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "catalog:"
   }
 }

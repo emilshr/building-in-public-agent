@@ -5,11 +5,19 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "check-types": "turbo run check-types"
+    "format": "biome format --write .",
+    "check-types": "turbo run check-types",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,mjs,cjs,json,jsonc,css}": [
+      "biome check --write --files-ignore-unknown=true --no-errors-on-unmatched"
+    ]
   },
   "devDependencies": {
-    "prettier": "catalog:",
+    "@biomejs/biome": "catalog:",
+    "husky": "catalog:",
+    "lint-staged": "catalog:",
     "turbo": "catalog:",
     "typescript": "catalog:"
   },

@@ -1,4 +1,4 @@
-import { db, content } from "@repo/db";
+import { content, db } from "@repo/db";
 import { and, eq } from "drizzle-orm";
 import { notFound, redirect } from "next/navigation";
 import { getCurrentUserId } from "@/lib/session";
@@ -22,7 +22,9 @@ export default async function ContentDetailPage({
       <p className="text-sm text-muted-foreground">
         {record.type} · {record.status}
       </p>
-      <pre className="rounded border p-4 whitespace-pre-wrap">{record.body}</pre>
+      <pre className="rounded border p-4 whitespace-pre-wrap">
+        {record.body}
+      </pre>
     </div>
   );
 }

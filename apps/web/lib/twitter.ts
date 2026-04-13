@@ -1,6 +1,6 @@
-import { db, twitterConnection, decryptApiKey, encryptApiKey } from "@repo/db";
-import { eq } from "drizzle-orm";
 import { randomUUID } from "node:crypto";
+import { db, decryptApiKey, encryptApiKey, twitterConnection } from "@repo/db";
+import { eq } from "drizzle-orm";
 
 export async function storeTwitterConnection(input: {
   userId: string;

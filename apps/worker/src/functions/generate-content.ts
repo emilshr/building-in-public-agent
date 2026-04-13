@@ -1,6 +1,13 @@
-import { db, apiKey, content, notification, repo, userPreferences } from "@repo/db";
-import { and, desc, eq } from "drizzle-orm";
 import { randomUUID } from "node:crypto";
+import {
+  apiKey,
+  content,
+  db,
+  notification,
+  repo,
+  userPreferences,
+} from "@repo/db";
+import { and, desc, eq } from "drizzle-orm";
 import { env } from "../env.js";
 import { inngest } from "../inngest.js";
 
@@ -42,7 +49,9 @@ export const generateContent = inngest.createFunction(
         userId,
         repoId: repoRecord.id,
         productSummary: repoRecord.productSummary,
-        contentTypes: preferences.contentTypes ? JSON.parse(preferences.contentTypes) : ["tweet"],
+        contentTypes: preferences.contentTypes
+          ? JSON.parse(preferences.contentTypes)
+          : ["tweet"],
         tone: preferences.tone ?? repoRecord.inferredTone ?? "casual",
       }),
     });
@@ -50,7 +59,11 @@ export const generateContent = inngest.createFunction(
       throw new Error("Agent content generation failed");
     }
     const result = (await response.json()) as {
-      items: Array<{ type: string; body: string; suggestedScheduledTime?: string }>;
+      items: Array<{
+        type: string;
+        body: string;
+        suggestedScheduledTime?: string;
+      }>;
     };
 
     for (const item of result.items) {

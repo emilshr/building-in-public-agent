@@ -72,11 +72,14 @@ export default function ApiKeysSettingsPage() {
         />
         <Button onClick={saveKey}>Save</Button>
       </div>
-      {message ? <p className="text-sm text-muted-foreground">{message}</p> : null}
+      {message ? (
+        <p className="text-sm text-muted-foreground">{message}</p>
+      ) : null}
       <div className="space-y-2">
         {keys.map((record) => (
           <div key={record.id} className="rounded border p-2 text-sm">
-            {record.provider} {record.maskedKey} ({record.isValid ? "valid" : "invalid"})
+            {record.provider} {record.maskedKey} (
+            {record.isValid ? "valid" : "invalid"})
           </div>
         ))}
       </div>

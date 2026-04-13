@@ -2,14 +2,21 @@ import { createHmac, timingSafeEqual } from "node:crypto";
 import { App } from "@octokit/app";
 import { env } from "@/src/env";
 
+let githubApp: App | null = null;
+
 function getPrivateKey() {
   return env.GITHUB_APP_PRIVATE_KEY.replace(/\\n/g, "\n");
 }
 
-const githubApp = new App({
-  appId: env.GITHUB_APP_ID,
-  privateKey: getPrivateKey(),
-});
+function getGithubApp() {
+  if (!githubApp) {
+    githubApp = new App({
+      appId: env.GITHUB_APP_ID,
+      privateKey: getPrivateKey(),
+    });
+  }
+  return githubApp;
+}
 
 export function getInstallUrl() {
   return `https://github.com/apps/${env.GITHUB_APP_SLUG}/installations/new`;
@@ -39,5 +46,5 @@ export function verifyGitHubWebhookSignature(
 }
 
 export async function getInstallationOctokit(installationId: number) {
-  return githubApp.getInstallationOctokit(installationId);
+  return getGithubApp().getInstallationOctokit(installationId);
 }

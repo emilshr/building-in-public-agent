@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ONBOARDING_STEP_MAX } from "@/lib/onboarding";
@@ -26,7 +26,9 @@ export default function OnboardingStepPage({
     if (step === 1) payload.productDescription = value || "Product";
     if (step === 2) payload.contentTypes = ["tweet", "thread"];
     if (step === 3) payload.generationFrequency = value || "weekly";
-    if (step === 4) payload.timezone = value || Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (step === 4)
+      payload.timezone =
+        value || Intl.DateTimeFormat().resolvedOptions().timeZone;
     if (step === 5) payload.tone = value || "casual";
     if (step === 6) payload.apiProvider = "openai";
 
@@ -53,7 +55,11 @@ export default function OnboardingStepPage({
         placeholder="Enter value for this step"
       />
       <Button disabled={loading} onClick={saveAndContinue}>
-        {loading ? "Saving..." : step === ONBOARDING_STEP_MAX ? "Finish setup" : "Continue"}
+        {loading
+          ? "Saving..."
+          : step === ONBOARDING_STEP_MAX
+            ? "Finish setup"
+            : "Continue"}
       </Button>
     </div>
   );

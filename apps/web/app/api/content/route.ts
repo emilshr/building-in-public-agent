@@ -1,14 +1,17 @@
-import { db, content, notification, repo } from "@repo/db";
+import { randomUUID } from "node:crypto";
+import { content, db, notification, repo } from "@repo/db";
 import { and, desc, eq } from "drizzle-orm";
 import { Inngest } from "inngest";
-import { randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { getCurrentUserId } from "@/lib/session";
 import { env } from "@/src/env";
 
 const inngest = env.INNGEST_EVENT_KEY
-  ? new Inngest({ id: "building-in-public-agent-web", eventKey: env.INNGEST_EVENT_KEY })
+  ? new Inngest({
+      id: "building-in-public-agent-web",
+      eventKey: env.INNGEST_EVENT_KEY,
+    })
   : null;
 
 const createSchema = z.object({
@@ -20,7 +23,8 @@ const createSchema = z.object({
 
 export async function GET(request: Request) {
   const userId = await getCurrentUserId();
-  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!userId)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const url = new URL(request.url);
   const status = url.searchParams.get("status");
 
@@ -36,7 +40,8 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   const userId = await getCurrentUserId();
-  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!userId)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const payload = createSchema.safeParse(await request.json());
   if (!payload.success) {
     return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
@@ -47,7 +52,10 @@ export async function POST(request: Request) {
     columns: { summaryVersion: true },
   });
   if (!repoRecord) {
-    return NextResponse.json({ error: "Repository not found" }, { status: 404 });
+    return NextResponse.json(
+      { error: "Repository not found" },
+      { status: 404 },
+    );
   }
 
   await db.insert(content).values({
@@ -68,7 +76,8 @@ export async function POST(request: Request) {
 
 export async function PATCH(request: Request) {
   const userId = await getCurrentUserId();
-  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!userId)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const body = (await request.json()) as {
     id: string;
     action: "approve" | "discard" | "schedule";
@@ -79,12 +88,19 @@ export async function PATCH(request: Request) {
     where: and(eq(content.id, body.id), eq(content.userId, userId)),
     columns: { id: true, status: true },
   });
-  if (!record) return NextResponse.json({ error: "Not found" }, { status: 404 });
+  if (!record)
+    return NextResponse.json({ error: "Not found" }, { status: 404 });
 
   if (body.action === "approve") {
-    await db.update(content).set({ status: "approved", updatedAt: new Date() }).where(eq(content.id, body.id));
+    await db
+      .update(content)
+      .set({ status: "approved", updatedAt: new Date() })
+      .where(eq(content.id, body.id));
   } else if (body.action === "discard") {
-    await db.update(content).set({ status: "discarded", updatedAt: new Date() }).where(eq(content.id, body.id));
+    await db
+      .update(content)
+      .set({ status: "discarded", updatedAt: new Date() })
+      .where(eq(content.id, body.id));
   } else {
     await db
       .update(content)
@@ -95,7 +111,10 @@ export async function PATCH(request: Request) {
       })
       .where(eq(content.id, body.id));
     if (inngest) {
-      await inngest.send({ name: "content.publish", data: { contentId: body.id, userId } });
+      await inngest.send({
+        name: "content.publish",
+        data: { contentId: body.id, userId },
+      });
     }
   }
 
@@ -104,11 +123,14 @@ export async function PATCH(request: Request) {
 
 export async function DELETE(request: Request) {
   const userId = await getCurrentUserId();
-  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!userId)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const url = new URL(request.url);
   const id = url.searchParams.get("id");
   if (!id) return NextResponse.json({ error: "id required" }, { status: 400 });
-  await db.delete(content).where(and(eq(content.id, id), eq(content.userId, userId)));
+  await db
+    .delete(content)
+    .where(and(eq(content.id, id), eq(content.userId, userId)));
   await db.insert(notification).values({
     id: randomUUID(),
     userId,

@@ -61,9 +61,7 @@ export function decryptApiKey(encryptedBlob: string, userId: string): string {
     SALT_LENGTH + IV_LENGTH,
     SALT_LENGTH + IV_LENGTH + AUTH_TAG_LENGTH,
   );
-  const ciphertext = data.subarray(
-    SALT_LENGTH + IV_LENGTH + AUTH_TAG_LENGTH,
-  );
+  const ciphertext = data.subarray(SALT_LENGTH + IV_LENGTH + AUTH_TAG_LENGTH);
 
   const key = deriveKey(salt, userId);
 

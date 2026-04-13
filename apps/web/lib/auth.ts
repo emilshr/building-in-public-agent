@@ -1,8 +1,8 @@
+import * as schema from "@repo/db/schema";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { drizzle } from "drizzle-orm/node-postgres";
 import pg from "pg";
-import * as schema from "@repo/db/schema";
 
 const pool = new pg.Pool({
   connectionString: process.env.DATABASE_URL,

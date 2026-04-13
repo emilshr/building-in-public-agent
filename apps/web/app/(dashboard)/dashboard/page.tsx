@@ -1,11 +1,11 @@
 "use client";
 
-import { authClient } from "@/lib/auth-client";
-import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { ContentCard } from "@/components/content-card";
 import { ContentFilters } from "@/components/content-filters";
+import { Button } from "@/components/ui/button";
+import { authClient } from "@/lib/auth-client";
 
 type ContentItem = {
   id: string;
@@ -22,7 +22,9 @@ export default function DashboardPage() {
 
   async function loadContent() {
     const response = await fetch(
-      status ? `/api/content?status=${encodeURIComponent(status)}` : "/api/content",
+      status
+        ? `/api/content?status=${encodeURIComponent(status)}`
+        : "/api/content",
     );
     if (!response.ok) return;
     const data = (await response.json()) as { content: ContentItem[] };

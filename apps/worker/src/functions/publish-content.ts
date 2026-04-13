@@ -1,6 +1,12 @@
-import { db, content, decryptApiKey, notification, twitterConnection } from "@repo/db";
-import { and, eq } from "drizzle-orm";
 import { randomUUID } from "node:crypto";
+import {
+  content,
+  db,
+  decryptApiKey,
+  notification,
+  twitterConnection,
+} from "@repo/db";
+import { and, eq } from "drizzle-orm";
 import { inngest } from "../inngest.js";
 import { postTweet } from "../lib/twitter-client.js";
 
@@ -23,12 +29,18 @@ export const publishContent = inngest.createFunction(
       where: eq(twitterConnection.userId, userId),
     });
     if (!connection) {
-      await db.update(content).set({ status: "failed", errorMessage: "No Twitter connection" }).where(eq(content.id, contentId));
+      await db
+        .update(content)
+        .set({ status: "failed", errorMessage: "No Twitter connection" })
+        .where(eq(content.id, contentId));
       return { ok: false };
     }
 
     try {
-      const accessToken = decryptApiKey(connection.encryptedAccessToken, userId);
+      const accessToken = decryptApiKey(
+        connection.encryptedAccessToken,
+        userId,
+      );
       const twitterPostId = await postTweet({
         accessToken,
         text: contentRecord.body.slice(0, 280),

@@ -1,13 +1,13 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 const publicPaths = ["/", "/api/auth", "/login"];
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Allow public paths and static assets
   if (
-    publicPaths.some((p) => pathname === p || pathname.startsWith(p + "/")) ||
+    publicPaths.some((p) => pathname === p || pathname.startsWith(`${p}/`)) ||
     pathname.startsWith("/_next") ||
     pathname.startsWith("/favicon")
   ) {
@@ -15,8 +15,7 @@ export function middleware(request: NextRequest) {
   }
 
   // Check for session token cookie (Better Auth uses __session or better-auth.session_token)
-  const sessionToken =
-    request.cookies.get("better-auth.session_token")?.value;
+  const sessionToken = request.cookies.get("better-auth.session_token")?.value;
 
   if (!sessionToken) {
     const loginUrl = new URL("/login", request.url);

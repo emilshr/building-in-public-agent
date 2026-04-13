@@ -11,9 +11,7 @@ const envSchema = z.object({
     .string()
     .min(1, "GITHUB_APP_PRIVATE_KEY is required"),
   GITHUB_APP_SLUG: z.string().min(1, "GITHUB_APP_SLUG is required"),
-  GITHUB_WEBHOOK_SECRET: z
-    .string()
-    .min(1, "GITHUB_WEBHOOK_SECRET is required"),
+  GITHUB_WEBHOOK_SECRET: z.string().min(1, "GITHUB_WEBHOOK_SECRET is required"),
   INNGEST_EVENT_KEY: z.string().optional(),
   ENCRYPTION_SECRET: z
     .string()
@@ -23,4 +21,15 @@ const envSchema = z.object({
   TWITTER_REDIRECT_URI: z.string().url().optional(),
 });
 
-export const env = envSchema.parse(process.env);
+type Env = z.infer<typeof envSchema>;
+
+function shouldSkipEnvValidation(): boolean {
+  if (process.env.SKIP_ENV_VALIDATION === "true") return true;
+  // Route modules are loaded during `next build`; CI may omit optional secrets.
+  if (process.env.NEXT_PHASE === "phase-production-build") return true;
+  return false;
+}
+
+export const env: Env = shouldSkipEnvValidation()
+  ? (process.env as unknown as Env)
+  : envSchema.parse(process.env);

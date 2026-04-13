@@ -1,6 +1,6 @@
-import { db, apiKey, decryptApiKey, encryptApiKey } from "@repo/db";
-import { and, eq } from "drizzle-orm";
 import { randomUUID } from "node:crypto";
+import { apiKey, db, decryptApiKey, encryptApiKey } from "@repo/db";
+import { and, eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { getCurrentUserId } from "@/lib/session";
@@ -12,7 +12,8 @@ const createSchema = z.object({
 
 export async function GET() {
   const userId = await getCurrentUserId();
-  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!userId)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const keys = await db.query.apiKey.findMany({
     where: eq(apiKey.userId, userId),
@@ -41,7 +42,8 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const userId = await getCurrentUserId();
-  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!userId)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const payload = createSchema.safeParse(await request.json());
   if (!payload.success) {
@@ -83,10 +85,12 @@ export async function POST(request: Request) {
 
 export async function DELETE(request: Request) {
   const userId = await getCurrentUserId();
-  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!userId)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const url = new URL(request.url);
   const provider = url.searchParams.get("provider");
-  if (!provider) return NextResponse.json({ error: "provider required" }, { status: 400 });
+  if (!provider)
+    return NextResponse.json({ error: "provider required" }, { status: 400 });
 
   await db
     .delete(apiKey)

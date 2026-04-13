@@ -11,7 +11,10 @@ export async function POST(request: Request) {
   const ip = request.headers.get("x-forwarded-for") ?? "local";
   const rate = checkRateLimit(`keys-validate:${ip}`, 20, 60_000);
   if (!rate.ok) {
-    return NextResponse.json({ ok: false, error: "Rate limited" }, { status: 429 });
+    return NextResponse.json(
+      { ok: false, error: "Rate limited" },
+      { status: 429 },
+    );
   }
 
   const body = await request.json();

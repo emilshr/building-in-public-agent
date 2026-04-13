@@ -5,7 +5,8 @@ import { getCurrentUserId } from "@/lib/session";
 
 export async function GET() {
   const userId = await getCurrentUserId();
-  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!userId)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const items = await db.query.notification.findMany({
     where: eq(notification.userId, userId),
     orderBy: [desc(notification.createdAt)],
@@ -23,7 +24,8 @@ export async function GET() {
 
 export async function PATCH(request: Request) {
   const userId = await getCurrentUserId();
-  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!userId)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const body = (await request.json()) as { id: string };
   await db
     .update(notification)

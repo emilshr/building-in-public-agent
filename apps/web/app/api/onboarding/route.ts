@@ -1,19 +1,23 @@
+import { randomUUID } from "node:crypto";
 import { db, userPreferences } from "@repo/db";
 import { eq } from "drizzle-orm";
 import { Inngest } from "inngest";
-import { randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
 import { onboardingPayloadSchema } from "@/lib/onboarding";
 import { getCurrentUserId } from "@/lib/session";
 import { env } from "@/src/env";
 
 const inngest = env.INNGEST_EVENT_KEY
-  ? new Inngest({ id: "building-in-public-agent-web", eventKey: env.INNGEST_EVENT_KEY })
+  ? new Inngest({
+      id: "building-in-public-agent-web",
+      eventKey: env.INNGEST_EVENT_KEY,
+    })
   : null;
 
 export async function GET() {
   const userId = await getCurrentUserId();
-  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!userId)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const prefs = await db.query.userPreferences.findFirst({
     where: eq(userPreferences.userId, userId),
   });
@@ -22,7 +26,8 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const userId = await getCurrentUserId();
-  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!userId)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const parsed = onboardingPayloadSchema.safeParse(await request.json());
   if (!parsed.success) {
     return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
@@ -66,7 +71,11 @@ export async function POST(request: Request) {
   if (parsed.data.step === 6) {
     await db
       .update(userPreferences)
-      .set({ onboardingComplete: true, onboardingStep: 6, updatedAt: new Date() })
+      .set({
+        onboardingComplete: true,
+        onboardingStep: 6,
+        updatedAt: new Date(),
+      })
       .where(eq(userPreferences.userId, userId));
 
     if (inngest) {

@@ -10,9 +10,14 @@ export async function postTweet(input: { accessToken: string; text: string }) {
     body: JSON.stringify({ text: input.text }),
   });
 
-  const data = (await response.json()) as { data?: { id: string }; title?: string };
+  const data = (await response.json()) as {
+    data?: { id: string };
+    title?: string;
+  };
   if (!response.ok) {
-    throw new Error(data.title ?? `Twitter request failed with ${response.status}`);
+    throw new Error(
+      data.title ?? `Twitter request failed with ${response.status}`,
+    );
   }
 
   return data.data?.id;

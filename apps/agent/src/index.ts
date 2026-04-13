@@ -1,8 +1,8 @@
 import { Mastra } from "@mastra/core";
 import express from "express";
-import { env } from "./env.js";
-import { runContentGenerationAgent } from "./agents/content-generation.js";
-import { runRepoAnalysisAgent } from "./agents/repo-analysis.js";
+import { runContentGenerationAgent } from "./agents/content-generation";
+import { runRepoAnalysisAgent } from "./agents/repo-analysis";
+import { env } from "./env";
 
 const mastra = new Mastra({
   agents: {},

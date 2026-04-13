@@ -25,7 +25,9 @@ export function ContentCard({
         <Badge>{item.type}</Badge>
         <Badge variant="secondary">{item.status}</Badge>
       </div>
-      <p className="text-sm text-muted-foreground whitespace-pre-wrap">{item.body}</p>
+      <p className="text-sm text-muted-foreground whitespace-pre-wrap">
+        {item.body}
+      </p>
       <div className="flex gap-2">
         <Button size="sm" onClick={() => onApprove(item.id)}>
           Approve

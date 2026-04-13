@@ -1,10 +1,9 @@
+import { rm } from "node:fs/promises";
 import { db, repo } from "@repo/db";
 import { eq } from "drizzle-orm";
-import { rm } from "node:fs/promises";
-import { env } from "../env.js";
-import { cloneRepo } from "../tools/clone-repo.js";
-import { parseStructure } from "../tools/parse-structure.js";
-import { readProjectFiles } from "../tools/read-files.js";
+import { cloneRepo } from "../tools/clone-repo";
+import { parseStructure } from "../tools/parse-structure";
+import { readProjectFiles } from "../tools/read-files";
 
 export type AnalyzeRepoInput = {
   repoId: string;
@@ -31,7 +30,9 @@ export async function analyzeRepoWorkflow(input: AnalyzeRepoInput) {
     const summary = {
       fullName: input.fullName,
       inferredStack: Object.keys(files).filter((file) =>
-        ["package.json", "pyproject.toml", "Cargo.toml", "go.mod"].includes(file),
+        ["package.json", "pyproject.toml", "Cargo.toml", "go.mod"].includes(
+          file,
+        ),
       ),
       keyFiles: Object.keys(files),
       topLevelStructure: structure.slice(0, 80),

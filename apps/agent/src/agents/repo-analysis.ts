@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { analyzeRepoWorkflow } from "../workflows/analyze-repo.js";
+import { analyzeRepoWorkflow } from "../workflows/analyze-repo";
 
 export const repoAnalysisInputSchema = z.object({
   repoId: z.string().min(1),

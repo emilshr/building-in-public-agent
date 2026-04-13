@@ -2,11 +2,14 @@ import { db, githubInstallation, repo } from "@repo/db";
 import { eq } from "drizzle-orm";
 import { Inngest } from "inngest";
 import { NextResponse } from "next/server";
-import { env } from "@/src/env";
 import { verifyGitHubWebhookSignature } from "@/lib/github";
+import { env } from "@/src/env";
 
 const inngest = env.INNGEST_EVENT_KEY
-  ? new Inngest({ id: "building-in-public-agent-web", eventKey: env.INNGEST_EVENT_KEY })
+  ? new Inngest({
+      id: "building-in-public-agent-web",
+      eventKey: env.INNGEST_EVENT_KEY,
+    })
   : null;
 
 type GitHubPushPayload = {

@@ -1,5 +1,5 @@
-import { describe, it, expect, beforeAll } from "vitest";
-import { encryptApiKey, decryptApiKey } from "./crypto.js";
+import { beforeAll, describe, expect, it } from "vitest";
+import { decryptApiKey, encryptApiKey } from "./crypto.js";
 
 beforeAll(() => {
   process.env.ENCRYPTION_SECRET =
@@ -40,10 +40,11 @@ describe("encryptApiKey / decryptApiKey", () => {
     const encrypted = encryptApiKey(plaintext, userId);
 
     const tampered = Buffer.from(encrypted, "base64");
-    tampered.writeUInt8(tampered[tampered.length - 1]! ^ 0xff, tampered.length - 1);
+    tampered.writeUInt8(
+      tampered[tampered.length - 1]! ^ 0xff,
+      tampered.length - 1,
+    );
 
-    expect(() =>
-      decryptApiKey(tampered.toString("base64"), userId),
-    ).toThrow();
+    expect(() => decryptApiKey(tampered.toString("base64"), userId)).toThrow();
   });
 });

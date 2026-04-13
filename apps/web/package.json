@@ -7,7 +7,7 @@
     "dev": "next dev --port 3000",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint --max-warnings 0",
+    "lint": "biome check .",
     "check-types": "next typegen && tsc --noEmit"
   },
   "dependencies": {
@@ -38,13 +38,12 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
+    "@biomejs/biome": "catalog:",
     "@repo/typescript-config": "workspace:*",
     "@types/node": "catalog:",
     "@types/pg": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "eslint": "catalog:",
     "typescript": "catalog:"
   }
 }

@@ -1,6 +1,6 @@
-import { buildArticlePrompt } from "../prompts/article.js";
-import { buildThreadPrompt } from "../prompts/thread.js";
-import { buildTweetPrompt } from "../prompts/tweet.js";
+import { buildArticlePrompt } from "../prompts/article";
+import { buildThreadPrompt } from "../prompts/thread";
+import { buildTweetPrompt } from "../prompts/tweet";
 
 type GenerateContentInput = {
   productSummary: string;
@@ -14,21 +14,36 @@ export async function generateContentWorkflow(input: GenerateContentInput) {
     if (type === "thread") {
       return {
         type,
-        body: buildThreadPrompt({ summary: input.productSummary, tone: input.tone }),
-        suggestedScheduledTime: new Date(now.getTime() + (index + 1) * 3600_000).toISOString(),
+        body: buildThreadPrompt({
+          summary: input.productSummary,
+          tone: input.tone,
+        }),
+        suggestedScheduledTime: new Date(
+          now.getTime() + (index + 1) * 3600_000,
+        ).toISOString(),
       };
     }
     if (type === "article") {
       return {
         type,
-        body: buildArticlePrompt({ summary: input.productSummary, tone: input.tone }),
-        suggestedScheduledTime: new Date(now.getTime() + (index + 1) * 3600_000).toISOString(),
+        body: buildArticlePrompt({
+          summary: input.productSummary,
+          tone: input.tone,
+        }),
+        suggestedScheduledTime: new Date(
+          now.getTime() + (index + 1) * 3600_000,
+        ).toISOString(),
       };
     }
     return {
       type,
-      body: buildTweetPrompt({ summary: input.productSummary, tone: input.tone }),
-      suggestedScheduledTime: new Date(now.getTime() + (index + 1) * 3600_000).toISOString(),
+      body: buildTweetPrompt({
+        summary: input.productSummary,
+        tone: input.tone,
+      }),
+      suggestedScheduledTime: new Date(
+        now.getTime() + (index + 1) * 3600_000,
+      ).toISOString(),
     };
   });
 
