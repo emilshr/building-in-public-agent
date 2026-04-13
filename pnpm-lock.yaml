@@ -4,24 +4,162 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    '@base-ui/react':
+      specifier: 1.4.0
+      version: 1.4.0
+    '@eslint/js':
+      specifier: 9.39.1
+      version: 9.39.1
+    '@mastra/core':
+      specifier: 0.10.15
+      version: 0.10.15
+    '@next/eslint-plugin-next':
+      specifier: 16.2.0
+      version: 16.2.0
+    '@octokit/app':
+      specifier: 16.1.2
+      version: 16.1.2
+    '@octokit/rest':
+      specifier: 22.0.1
+      version: 22.0.1
+    '@tailwindcss/postcss':
+      specifier: 4.2.2
+      version: 4.2.2
+    '@types/express':
+      specifier: 5.0.6
+      version: 5.0.6
+    '@types/node':
+      specifier: 22.15.3
+      version: 22.15.3
+    '@types/pg':
+      specifier: 8.20.0
+      version: 8.20.0
+    '@types/react':
+      specifier: 19.2.2
+      version: 19.2.2
+    '@types/react-dom':
+      specifier: 19.2.2
+      version: 19.2.2
+    better-auth:
+      specifier: 1.6.2
+      version: 1.6.2
+    class-variance-authority:
+      specifier: 0.7.1
+      version: 0.7.1
+    clsx:
+      specifier: 2.1.1
+      version: 2.1.1
+    date-fns:
+      specifier: 4.1.0
+      version: 4.1.0
+    drizzle-kit:
+      specifier: 0.31.10
+      version: 0.31.10
+    drizzle-orm:
+      specifier: 0.44.7
+      version: 0.44.7
+    eslint:
+      specifier: 9.39.1
+      version: 9.39.1
+    eslint-config-prettier:
+      specifier: 10.1.1
+      version: 10.1.1
+    eslint-plugin-only-warn:
+      specifier: 1.1.0
+      version: 1.1.0
+    eslint-plugin-react:
+      specifier: 7.37.5
+      version: 7.37.5
+    eslint-plugin-react-hooks:
+      specifier: 5.2.0
+      version: 5.2.0
+    eslint-plugin-turbo:
+      specifier: 2.7.1
+      version: 2.7.1
+    express:
+      specifier: 5.2.1
+      version: 5.2.1
+    globals:
+      specifier: 16.5.0
+      version: 16.5.0
+    inngest:
+      specifier: 3.52.7
+      version: 3.52.7
+    lucide-react:
+      specifier: 1.8.0
+      version: 1.8.0
+    next:
+      specifier: 16.2.0
+      version: 16.2.0
+    pg:
+      specifier: 8.20.0
+      version: 8.20.0
+    postcss:
+      specifier: 8.5.9
+      version: 8.5.9
+    prettier:
+      specifier: 3.7.4
+      version: 3.7.4
+    react:
+      specifier: 19.2.0
+      version: 19.2.0
+    react-day-picker:
+      specifier: 9.14.0
+      version: 9.14.0
+    react-dom:
+      specifier: 19.2.0
+      version: 19.2.0
+    shadcn:
+      specifier: 4.2.0
+      version: 4.2.0
+    tailwind-merge:
+      specifier: 3.5.0
+      version: 3.5.0
+    tailwindcss:
+      specifier: 4.2.2
+      version: 4.2.2
+    tsx:
+      specifier: 4.21.0
+      version: 4.21.0
+    turbo:
+      specifier: 2.9.6
+      version: 2.9.6
+    tw-animate-css:
+      specifier: 1.4.0
+      version: 1.4.0
+    typescript:
+      specifier: 5.9.2
+      version: 5.9.2
+    typescript-eslint:
+      specifier: 8.50.0
+      version: 8.50.0
+    vitest:
+      specifier: 3.2.4
+      version: 3.2.4
+    zod:
+      specifier: 3.25.76
+      version: 3.25.76
+
 importers:
 
   .:
     devDependencies:
       prettier:
-        specifier: ^3.7.4
+        specifier: 'catalog:'
         version: 3.7.4
       turbo:
-        specifier: ^2.9.6
+        specifier: 'catalog:'
         version: 2.9.6
       typescript:
-        specifier: 5.9.2
+        specifier: 'catalog:'
         version: 5.9.2
 
   apps/agent:
     dependencies:
       '@mastra/core':
-        specifier: ^0.10.0
+        specifier: 'catalog:'
         version: 0.10.15(openapi-types@12.1.3)(react@19.2.5)(zod@3.25.76)
       '@repo/db':
         specifier: workspace:*
@@ -30,41 +168,41 @@ importers:
         specifier: workspace:*
         version: link:../../packages/types
       drizzle-orm:
-        specifier: ^0.44.0
+        specifier: 'catalog:'
         version: 0.44.7(@opentelemetry/api@1.9.1)(@types/pg@8.20.0)(kysely@0.28.16)(pg@8.20.0)
       express:
-        specifier: ^5.1.0
+        specifier: 'catalog:'
         version: 5.2.1
       zod:
-        specifier: ^3.25.76
+        specifier: 'catalog:'
         version: 3.25.76
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
       '@types/express':
-        specifier: ^5.0.3
+        specifier: 'catalog:'
         version: 5.0.6
       '@types/node':
-        specifier: ^22.15.3
+        specifier: 'catalog:'
         version: 22.15.3
       tsx:
-        specifier: ^4.19.0
+        specifier: 'catalog:'
         version: 4.21.0
       typescript:
-        specifier: 5.9.2
+        specifier: 'catalog:'
         version: 5.9.2
 
   apps/web:
     dependencies:
       '@base-ui/react':
-        specifier: ^1.4.0
+        specifier: 'catalog:'
         version: 1.4.0(@date-fns/tz@1.4.1)(@types/react@19.2.2)(date-fns@4.1.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@octokit/app':
-        specifier: ^16.1.2
+        specifier: 'catalog:'
         version: 16.1.2
       '@octokit/rest':
-        specifier: ^22.0.1
+        specifier: 'catalog:'
         version: 22.0.1
       '@repo/db':
         specifier: workspace:*
@@ -76,61 +214,61 @@ importers:
         specifier: workspace:*
         version: link:../../packages/ui
       '@tailwindcss/postcss':
-        specifier: ^4.2.2
+        specifier: 'catalog:'
         version: 4.2.2
       better-auth:
-        specifier: ^1.6.2
+        specifier: 'catalog:'
         version: 1.6.2(@opentelemetry/api@1.9.1)(drizzle-kit@0.31.10)(drizzle-orm@0.44.7(@opentelemetry/api@1.9.1)(@types/pg@8.20.0)(kysely@0.28.16)(pg@8.20.0))(next@16.2.0(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(pg@8.20.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vitest@3.2.4(@types/debug@4.1.13)(@types/node@22.15.3)(jiti@2.6.1)(lightningcss@1.32.0)(msw@2.13.2(@types/node@22.15.3)(typescript@5.9.2))(tsx@4.21.0)(yaml@2.8.3))
       class-variance-authority:
-        specifier: ^0.7.1
+        specifier: 'catalog:'
         version: 0.7.1
       clsx:
-        specifier: ^2.1.1
+        specifier: 'catalog:'
         version: 2.1.1
       date-fns:
-        specifier: ^4.1.0
+        specifier: 'catalog:'
         version: 4.1.0
       drizzle-orm:
-        specifier: ^0.44.0
+        specifier: 'catalog:'
         version: 0.44.7(@opentelemetry/api@1.9.1)(@types/pg@8.20.0)(kysely@0.28.16)(pg@8.20.0)
       inngest:
-        specifier: ^3.35.0
+        specifier: 'catalog:'
         version: 3.52.7(@opentelemetry/core@2.6.1(@opentelemetry/api@1.9.1))(express@5.2.1)(hono@4.12.12)(next@16.2.0(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(typescript@5.9.2)(zod@3.25.76)
       lucide-react:
-        specifier: ^1.8.0
+        specifier: 'catalog:'
         version: 1.8.0(react@19.2.0)
       next:
-        specifier: 16.2.0
+        specifier: 'catalog:'
         version: 16.2.0(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       pg:
-        specifier: ^8.16.0
+        specifier: 'catalog:'
         version: 8.20.0
       postcss:
-        specifier: ^8.5.9
+        specifier: 'catalog:'
         version: 8.5.9
       react:
-        specifier: ^19.2.0
+        specifier: 'catalog:'
         version: 19.2.0
       react-day-picker:
-        specifier: ^9.14.0
+        specifier: 'catalog:'
         version: 9.14.0(react@19.2.0)
       react-dom:
-        specifier: ^19.2.0
+        specifier: 'catalog:'
         version: 19.2.0(react@19.2.0)
       shadcn:
-        specifier: ^4.2.0
+        specifier: 'catalog:'
         version: 4.2.0(@types/node@22.15.3)(typescript@5.9.2)
       tailwind-merge:
-        specifier: ^3.5.0
+        specifier: 'catalog:'
         version: 3.5.0
       tailwindcss:
-        specifier: ^4.2.2
+        specifier: 'catalog:'
         version: 4.2.2
       tw-animate-css:
-        specifier: ^1.4.0
+        specifier: 'catalog:'
         version: 1.4.0
       zod:
-        specifier: ^3.25.76
+        specifier: 'catalog:'
         version: 3.25.76
     devDependencies:
       '@repo/eslint-config':
@@ -140,22 +278,22 @@ importers:
         specifier: workspace:*
         version: link:../../packages/typescript-config
       '@types/node':
-        specifier: ^22.15.3
+        specifier: 'catalog:'
         version: 22.15.3
       '@types/pg':
-        specifier: ^8.15.4
+        specifier: 'catalog:'
         version: 8.20.0
       '@types/react':
-        specifier: 19.2.2
+        specifier: 'catalog:'
         version: 19.2.2
       '@types/react-dom':
-        specifier: 19.2.2
+        specifier: 'catalog:'
         version: 19.2.2(@types/react@19.2.2)
       eslint:
-        specifier: ^9.39.1
+        specifier: 'catalog:'
         version: 9.39.1(jiti@2.6.1)
       typescript:
-        specifier: 5.9.2
+        specifier: 'catalog:'
         version: 5.9.2
 
   apps/worker:
@@ -167,103 +305,103 @@ importers:
         specifier: workspace:*
         version: link:../../packages/types
       drizzle-orm:
-        specifier: ^0.44.0
+        specifier: 'catalog:'
         version: 0.44.7(@opentelemetry/api@1.9.1)(@types/pg@8.20.0)(kysely@0.28.16)(pg@8.20.0)
       express:
-        specifier: ^5.1.0
+        specifier: 'catalog:'
         version: 5.2.1
       inngest:
-        specifier: ^3.35.0
+        specifier: 'catalog:'
         version: 3.52.7(@opentelemetry/core@2.6.1(@opentelemetry/api@1.9.1))(express@5.2.1)(hono@4.12.12)(next@16.2.0(@opentelemetry/api@1.9.1)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(typescript@5.9.2)(zod@3.25.76)
       zod:
-        specifier: ^3.25.76
+        specifier: 'catalog:'
         version: 3.25.76
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
       '@types/express':
-        specifier: ^5.0.3
+        specifier: 'catalog:'
         version: 5.0.6
       '@types/node':
-        specifier: ^22.15.3
+        specifier: 'catalog:'
         version: 22.15.3
       tsx:
-        specifier: ^4.19.0
+        specifier: 'catalog:'
         version: 4.21.0
       typescript:
-        specifier: 5.9.2
+        specifier: 'catalog:'
         version: 5.9.2
 
   packages/db:
     dependencies:
       drizzle-orm:
-        specifier: ^0.44.0
+        specifier: 'catalog:'
         version: 0.44.7(@opentelemetry/api@1.9.1)(@types/pg@8.20.0)(kysely@0.28.16)(pg@8.20.0)
       pg:
-        specifier: ^8.16.0
+        specifier: 'catalog:'
         version: 8.20.0
       zod:
-        specifier: ^3.25.76
+        specifier: 'catalog:'
         version: 3.25.76
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
       '@types/node':
-        specifier: ^22.15.3
+        specifier: 'catalog:'
         version: 22.15.3
       '@types/pg':
-        specifier: ^8.15.4
+        specifier: 'catalog:'
         version: 8.20.0
       drizzle-kit:
-        specifier: ^0.31.0
+        specifier: 'catalog:'
         version: 0.31.10
       typescript:
-        specifier: 5.9.2
+        specifier: 'catalog:'
         version: 5.9.2
       vitest:
-        specifier: ^3.2.1
+        specifier: 'catalog:'
         version: 3.2.4(@types/debug@4.1.13)(@types/node@22.15.3)(jiti@2.6.1)(lightningcss@1.32.0)(msw@2.13.2(@types/node@22.15.3)(typescript@5.9.2))(tsx@4.21.0)(yaml@2.8.3)
 
   packages/eslint-config:
     dependencies:
       zod:
-        specifier: 3.25.76
+        specifier: 'catalog:'
         version: 3.25.76
     devDependencies:
       '@eslint/js':
-        specifier: ^9.39.1
+        specifier: 'catalog:'
         version: 9.39.1
       '@next/eslint-plugin-next':
-        specifier: ^16.2.0
+        specifier: 'catalog:'
         version: 16.2.0
       eslint:
-        specifier: ^9.39.1
+        specifier: 'catalog:'
         version: 9.39.1(jiti@2.6.1)
       eslint-config-prettier:
-        specifier: ^10.1.1
+        specifier: 'catalog:'
         version: 10.1.1(eslint@9.39.1(jiti@2.6.1))
       eslint-plugin-only-warn:
-        specifier: ^1.1.0
+        specifier: 'catalog:'
         version: 1.1.0
       eslint-plugin-react:
-        specifier: ^7.37.5
+        specifier: 'catalog:'
         version: 7.37.5(eslint@9.39.1(jiti@2.6.1))
       eslint-plugin-react-hooks:
-        specifier: ^5.2.0
+        specifier: 'catalog:'
         version: 5.2.0(eslint@9.39.1(jiti@2.6.1))
       eslint-plugin-turbo:
-        specifier: ^2.7.1
+        specifier: 'catalog:'
         version: 2.7.1(eslint@9.39.1(jiti@2.6.1))(turbo@2.9.6)
       globals:
-        specifier: ^16.5.0
+        specifier: 'catalog:'
         version: 16.5.0
       typescript:
-        specifier: ^5.9.2
+        specifier: 'catalog:'
         version: 5.9.2
       typescript-eslint:
-        specifier: ^8.50.0
+        specifier: 'catalog:'
         version: 8.50.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.2)
 
   packages/types:
@@ -272,25 +410,25 @@ importers:
         specifier: workspace:*
         version: link:../typescript-config
       typescript:
-        specifier: 5.9.2
+        specifier: 'catalog:'
         version: 5.9.2
 
   packages/typescript-config:
     dependencies:
       zod:
-        specifier: 3.25.76
+        specifier: 'catalog:'
         version: 3.25.76
 
   packages/ui:
     dependencies:
       react:
-        specifier: ^19.2.0
+        specifier: 'catalog:'
         version: 19.2.0
       react-dom:
-        specifier: ^19.2.0
+        specifier: 'catalog:'
         version: 19.2.0(react@19.2.0)
       zod:
-        specifier: 3.25.76
+        specifier: 'catalog:'
         version: 3.25.76
     devDependencies:
       '@repo/eslint-config':
@@ -300,19 +438,19 @@ importers:
         specifier: workspace:*
         version: link:../typescript-config
       '@types/node':
-        specifier: ^22.15.3
+        specifier: 'catalog:'
         version: 22.15.3
       '@types/react':
-        specifier: 19.2.2
+        specifier: 'catalog:'
         version: 19.2.2
       '@types/react-dom':
-        specifier: 19.2.2
+        specifier: 'catalog:'
         version: 19.2.2(@types/react@19.2.2)
       eslint:
-        specifier: ^9.39.1
+        specifier: 'catalog:'
         version: 9.39.1(jiti@2.6.1)
       typescript:
-        specifier: 5.9.2
+        specifier: 'catalog:'
         version: 5.9.2
 
 packages:
@@ -2996,6 +3134,7 @@ packages:
   acorn@8.15.0:
     resolution: {integrity: sha512-NZyJarBfL7nWwIq+FDL6Zp/yHEhePMNnnJ0y3qfieCrmNvYct8uvtiV41UvlSe6apAfk0fY1FbWx+NwfmpvtTg==}
     engines: {node: '>=0.4.0'}
+    hasBin: true
 
   agent-base@7.1.4:
     resolution: {integrity: sha512-MnA+YT8fwfJPgBx3m60MNqakm30XOkyIoH1y6huTQvC0PwZG7ki8NacLBcrPbNoo8vEZy7Jpuk7+jMO+CUovTQ==}
@@ -3103,10 +3242,6 @@ packages:
     resolution: {integrity: sha512-VSnGQAOLtP5mib/DPyg2/t+Tlv65NTBz83BJBJvmLVHHuKJVaDOBvJJykiT5TR++em5nfAySPccDZDa4oSrn8A==}
     engines: {node: '>=6.0.0'}
     hasBin: true
-
-  baseline-browser-mapping@2.10.8:
-    resolution: {integrity: sha512-PCLz/LXGBsNTErbtB6i5u4eLpHeMfi93aUv5duMmj6caNu6IphS4q6UevDnL36sZQv9lrP11dbPKGMaXPwMKfQ==}
-    engines: {node: '>=6.0.0'}
 
   before-after-hook@4.0.0:
     resolution: {integrity: sha512-q6tR3RPqIB1pMiTRMFcZwuG5T8vwp+vUvEG0vuI6B+Rikh5BfPp2fQ82c925FOs+b0lcFQ8CFrL+KbilfZFhOQ==}
@@ -3237,9 +3372,6 @@ packages:
   callsites@3.1.0:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
     engines: {node: '>=6'}
-
-  caniuse-lite@1.0.30001761:
-    resolution: {integrity: sha512-JF9ptu1vP2coz98+5051jZ4PwQgd2ni8A+gYSN7EA7dPKIMf0pDlSUxhdmVOaV3/fYK5uWBkgSXJaRLr4+3A6g==}
 
   caniuse-lite@1.0.30001787:
     resolution: {integrity: sha512-mNcrMN9KeI68u7muanUpEejSLghOKlVhRqS/Za2IeyGllJ9I9otGpR9g3nsw7n4W378TE/LyIteA0+/FOZm4Kg==}
@@ -4385,6 +4517,7 @@ packages:
 
   js-yaml@4.1.0:
     resolution: {integrity: sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==}
+    hasBin: true
 
   jsesc@3.1.0:
     resolution: {integrity: sha512-/sM3dO2FOzXjKQhJuo0Q173wf2KOo8t4I8vHy6lF9poUp7bKT0/NHE8fPX23PwfhnykfqnC2xRxOnVw5XuGIaA==}
@@ -4557,6 +4690,7 @@ packages:
 
   loose-envify@1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
+    hasBin: true
 
   loupe@3.2.1:
     resolution: {integrity: sha512-CdzqowRJCeLU72bHvWqwRBBlLcMEtIvGrlvef74kMnV2AolS9Y8xUv1I0U/MNAWMhBlKIoyuEgoJ0t/bbwHbLQ==}
@@ -4951,6 +5085,7 @@ packages:
   prettier@3.7.4:
     resolution: {integrity: sha512-v6UNi1+3hSlVvv8fSaoUbggEM5VErKmmpGA7Pl3HF8V6uKY7rvClBOJlH6yNwQtfTueNkGVpOv/mtWL9L4bgRA==}
     engines: {node: '>=14'}
+    hasBin: true
 
   pretty-ms@9.3.0:
     resolution: {integrity: sha512-gjVS5hOP+M3wMm5nmNOucbIrqudzs9v/57bWRHQWLYklXqoXKrVfYW2W9+glfGsqtPgpiz5WwyEEB+ksXIx3gQ==}
@@ -5079,6 +5214,7 @@ packages:
 
   resolve@2.0.0-next.5:
     resolution: {integrity: sha512-U7WjGVG9sH8tvjW5SmGbQuui75FiyjAX72HX15DwBBwF9dNiQZRQAg9nnPhYy+TUnE0+VcrttuvNI8oSxZcocA==}
+    hasBin: true
 
   restore-cursor@5.1.0:
     resolution: {integrity: sha512-oMA2dcrw6u0YfxJQXm342bFKX/E4sG9rbTzO9ptUcR/e8A33cHuvStiYOwH7fszkZlZ1z/ta9AAoPk2F4qIOHA==}
@@ -5140,10 +5276,12 @@ packages:
 
   semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
+    hasBin: true
 
   semver@7.7.3:
     resolution: {integrity: sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==}
     engines: {node: '>=10'}
+    hasBin: true
 
   send@1.2.1:
     resolution: {integrity: sha512-1gnZf7DFcoIcajTjTwjwuDjzuz4PPcY2StKPlsGAQ1+YH20IRVrBaXSWmdjowTJ6u8Rc01PoYOGHXfP1mYcZNQ==}
@@ -5458,6 +5596,7 @@ packages:
 
   turbo@2.9.6:
     resolution: {integrity: sha512-+v2QJey7ZUeUiuigkU+uFfklvNUyPI2VO2vBpMYJA+a1hKFLFiKtUYlRHdb3P9CrAvMzi0upbjI4WT+zKtqkBg==}
+    hasBin: true
 
   tw-animate-css@1.4.0:
     resolution: {integrity: sha512-7bziOlRqH0hJx80h/3mbicLW7o8qLsH5+RaLR2t+OHM3D0JlWGODQKQ4cxbK7WlvmUxpcj6Kgu6EKqjrGFe3QQ==}
@@ -5665,6 +5804,7 @@ packages:
   which@2.0.2:
     resolution: {integrity: sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==}
     engines: {node: '>= 8'}
+    hasBin: true
 
   which@4.0.0:
     resolution: {integrity: sha512-GlaYyEb07DPxYCKhKzplCWBJtvxZcZMrL+4UkrTSJHHPyZU4mYYTv3qaOe77H7EODLSSopAUFAc6W8U4yqvscg==}
@@ -6003,51 +6143,51 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.2.2
 
-  '@better-auth/core@1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@4.3.6))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0)':
+  '@better-auth/core@1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@3.25.76))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0)':
     dependencies:
       '@better-auth/utils': 0.4.0
       '@better-fetch/fetch': 1.1.21
       '@opentelemetry/api': 1.9.1
       '@opentelemetry/semantic-conventions': 1.40.0
       '@standard-schema/spec': 1.1.0
-      better-call: 1.3.5(zod@3.25.76)
+      better-call: 1.3.5(zod@4.3.6)
       jose: 6.2.2
       kysely: 0.28.16
       nanostores: 1.2.0
       zod: 4.3.6
 
-  '@better-auth/drizzle-adapter@1.6.2(@better-auth/core@1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@4.3.6))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0))(@better-auth/utils@0.4.0)(drizzle-orm@0.44.7(@opentelemetry/api@1.9.1)(@types/pg@8.20.0)(kysely@0.28.16)(pg@8.20.0))':
+  '@better-auth/drizzle-adapter@1.6.2(@better-auth/core@1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@3.25.76))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0))(@better-auth/utils@0.4.0)(drizzle-orm@0.44.7(@opentelemetry/api@1.9.1)(@types/pg@8.20.0)(kysely@0.28.16)(pg@8.20.0))':
     dependencies:
-      '@better-auth/core': 1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@4.3.6))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0)
+      '@better-auth/core': 1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@3.25.76))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0)
       '@better-auth/utils': 0.4.0
     optionalDependencies:
       drizzle-orm: 0.44.7(@opentelemetry/api@1.9.1)(@types/pg@8.20.0)(kysely@0.28.16)(pg@8.20.0)
 
-  '@better-auth/kysely-adapter@1.6.2(@better-auth/core@1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@4.3.6))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0))(@better-auth/utils@0.4.0)(kysely@0.28.16)':
+  '@better-auth/kysely-adapter@1.6.2(@better-auth/core@1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@3.25.76))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0))(@better-auth/utils@0.4.0)(kysely@0.28.16)':
     dependencies:
-      '@better-auth/core': 1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@4.3.6))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0)
+      '@better-auth/core': 1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@3.25.76))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0)
       '@better-auth/utils': 0.4.0
     optionalDependencies:
       kysely: 0.28.16
 
-  '@better-auth/memory-adapter@1.6.2(@better-auth/core@1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@4.3.6))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0))(@better-auth/utils@0.4.0)':
+  '@better-auth/memory-adapter@1.6.2(@better-auth/core@1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@3.25.76))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0))(@better-auth/utils@0.4.0)':
     dependencies:
-      '@better-auth/core': 1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@4.3.6))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0)
+      '@better-auth/core': 1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@3.25.76))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0)
       '@better-auth/utils': 0.4.0
 
-  '@better-auth/mongo-adapter@1.6.2(@better-auth/core@1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@4.3.6))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0))(@better-auth/utils@0.4.0)':
+  '@better-auth/mongo-adapter@1.6.2(@better-auth/core@1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@3.25.76))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0))(@better-auth/utils@0.4.0)':
     dependencies:
-      '@better-auth/core': 1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@4.3.6))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0)
+      '@better-auth/core': 1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@3.25.76))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0)
       '@better-auth/utils': 0.4.0
 
-  '@better-auth/prisma-adapter@1.6.2(@better-auth/core@1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@4.3.6))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0))(@better-auth/utils@0.4.0)':
+  '@better-auth/prisma-adapter@1.6.2(@better-auth/core@1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@3.25.76))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0))(@better-auth/utils@0.4.0)':
     dependencies:
-      '@better-auth/core': 1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@4.3.6))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0)
+      '@better-auth/core': 1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@3.25.76))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0)
       '@better-auth/utils': 0.4.0
 
-  '@better-auth/telemetry@1.6.2(@better-auth/core@1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@4.3.6))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0))(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)':
+  '@better-auth/telemetry@1.6.2(@better-auth/core@1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@3.25.76))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0))(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)':
     dependencies:
-      '@better-auth/core': 1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@4.3.6))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0)
+      '@better-auth/core': 1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@3.25.76))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0)
       '@better-auth/utils': 0.4.0
       '@better-fetch/fetch': 1.1.21
 
@@ -8842,24 +8982,22 @@ snapshots:
 
   baseline-browser-mapping@2.10.18: {}
 
-  baseline-browser-mapping@2.10.8: {}
-
   before-after-hook@4.0.0: {}
 
   better-auth@1.6.2(@opentelemetry/api@1.9.1)(drizzle-kit@0.31.10)(drizzle-orm@0.44.7(@opentelemetry/api@1.9.1)(@types/pg@8.20.0)(kysely@0.28.16)(pg@8.20.0))(next@16.2.0(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(pg@8.20.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vitest@3.2.4(@types/debug@4.1.13)(@types/node@22.15.3)(jiti@2.6.1)(lightningcss@1.32.0)(msw@2.13.2(@types/node@22.15.3)(typescript@5.9.2))(tsx@4.21.0)(yaml@2.8.3)):
     dependencies:
-      '@better-auth/core': 1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@4.3.6))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0)
-      '@better-auth/drizzle-adapter': 1.6.2(@better-auth/core@1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@4.3.6))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0))(@better-auth/utils@0.4.0)(drizzle-orm@0.44.7(@opentelemetry/api@1.9.1)(@types/pg@8.20.0)(kysely@0.28.16)(pg@8.20.0))
-      '@better-auth/kysely-adapter': 1.6.2(@better-auth/core@1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@4.3.6))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0))(@better-auth/utils@0.4.0)(kysely@0.28.16)
-      '@better-auth/memory-adapter': 1.6.2(@better-auth/core@1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@4.3.6))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0))(@better-auth/utils@0.4.0)
-      '@better-auth/mongo-adapter': 1.6.2(@better-auth/core@1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@4.3.6))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0))(@better-auth/utils@0.4.0)
-      '@better-auth/prisma-adapter': 1.6.2(@better-auth/core@1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@4.3.6))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0))(@better-auth/utils@0.4.0)
-      '@better-auth/telemetry': 1.6.2(@better-auth/core@1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@4.3.6))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0))(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)
+      '@better-auth/core': 1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@3.25.76))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0)
+      '@better-auth/drizzle-adapter': 1.6.2(@better-auth/core@1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@3.25.76))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0))(@better-auth/utils@0.4.0)(drizzle-orm@0.44.7(@opentelemetry/api@1.9.1)(@types/pg@8.20.0)(kysely@0.28.16)(pg@8.20.0))
+      '@better-auth/kysely-adapter': 1.6.2(@better-auth/core@1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@3.25.76))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0))(@better-auth/utils@0.4.0)(kysely@0.28.16)
+      '@better-auth/memory-adapter': 1.6.2(@better-auth/core@1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@3.25.76))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0))(@better-auth/utils@0.4.0)
+      '@better-auth/mongo-adapter': 1.6.2(@better-auth/core@1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@3.25.76))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0))(@better-auth/utils@0.4.0)
+      '@better-auth/prisma-adapter': 1.6.2(@better-auth/core@1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@3.25.76))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0))(@better-auth/utils@0.4.0)
+      '@better-auth/telemetry': 1.6.2(@better-auth/core@1.6.2(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.1)(better-call@1.3.5(zod@3.25.76))(jose@6.2.2)(kysely@0.28.16)(nanostores@1.2.0))(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)
       '@better-auth/utils': 0.4.0
       '@better-fetch/fetch': 1.1.21
       '@noble/ciphers': 2.2.0
       '@noble/hashes': 2.2.0
-      better-call: 1.3.5(zod@3.25.76)
+      better-call: 1.3.5(zod@4.3.6)
       defu: 6.1.7
       jose: 6.2.2
       kysely: 0.28.16
@@ -8877,14 +9015,14 @@ snapshots:
       - '@cloudflare/workers-types'
       - '@opentelemetry/api'
 
-  better-call@1.3.5(zod@3.25.76):
+  better-call@1.3.5(zod@4.3.6):
     dependencies:
       '@better-auth/utils': 0.4.0
       '@better-fetch/fetch': 1.1.21
       rou3: 0.7.12
       set-cookie-parser: 3.1.0
     optionalDependencies:
-      zod: 3.25.76
+      zod: 4.3.6
 
   bignumber.js@9.3.1: {}
 
@@ -8955,8 +9093,6 @@ snapshots:
       get-intrinsic: 1.3.0
 
   callsites@3.1.0: {}
-
-  caniuse-lite@1.0.30001761: {}
 
   caniuse-lite@1.0.30001787: {}
 
@@ -10389,8 +10525,8 @@ snapshots:
     dependencies:
       '@next/env': 16.2.0
       '@swc/helpers': 0.5.15
-      baseline-browser-mapping: 2.10.8
-      caniuse-lite: 1.0.30001761
+      baseline-browser-mapping: 2.10.18
+      caniuse-lite: 1.0.30001787
       postcss: 8.4.31
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
@@ -10414,8 +10550,8 @@ snapshots:
     dependencies:
       '@next/env': 16.2.0
       '@swc/helpers': 0.5.15
-      baseline-browser-mapping: 2.10.8
-      caniuse-lite: 1.0.30001761
+      baseline-browser-mapping: 2.10.18
+      caniuse-lite: 1.0.30001787
       postcss: 8.4.31
       react: 19.2.5
       react-dom: 19.2.5(react@19.2.5)

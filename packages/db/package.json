@@ -18,16 +18,16 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "drizzle-orm": "^0.44.0",
-    "pg": "^8.16.0",
-    "zod": "^3.25.76"
+    "drizzle-orm": "catalog:",
+    "pg": "catalog:",
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
-    "@types/node": "^22.15.3",
-    "@types/pg": "^8.15.4",
-    "drizzle-kit": "^0.31.0",
-    "typescript": "5.9.2",
-    "vitest": "^3.2.1"
+    "@types/node": "catalog:",
+    "@types/pg": "catalog:",
+    "drizzle-kit": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   }
 }
