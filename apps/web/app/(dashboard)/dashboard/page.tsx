@@ -1,40 +1,77 @@
 "use client";
 
 import { authClient } from "@/lib/auth-client";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 export default function DashboardPage() {
   const { data: session, isPending } = authClient.useSession();
 
   if (isPending) {
-    return <p>Loading...</p>;
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <p className="text-muted-foreground">Loading...</p>
+      </div>
+    );
   }
 
   if (!session) {
-    return <p>Not authenticated</p>;
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <p className="text-muted-foreground">Not authenticated</p>
+      </div>
+    );
   }
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h1 style={{ fontSize: "1.5rem", fontWeight: "bold" }}>Dashboard</h1>
-      <p style={{ marginTop: "1rem" }}>
-        Welcome, {session.user.name ?? session.user.email}!
-      </p>
-      <button
-        onClick={async () => {
-          await authClient.signOut();
-          window.location.href = "/login";
-        }}
-        style={{
-          marginTop: "1rem",
-          padding: "0.5rem 1rem",
-          background: "#eee",
-          border: "1px solid #ccc",
-          borderRadius: "0.375rem",
-          cursor: "pointer",
-        }}
-      >
-        Sign out
-      </button>
+    <div className="container mx-auto max-w-4xl p-8">
+      <div className="mb-8 flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold">Dashboard</h1>
+          <p className="text-muted-foreground">
+            Welcome back, {session.user.name ?? session.user.email}
+          </p>
+        </div>
+        <Button
+          variant="outline"
+          onClick={async () => {
+            await authClient.signOut();
+            window.location.href = "/login";
+          }}
+        >
+          Sign out
+        </Button>
+      </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Getting Started</CardTitle>
+          <CardDescription>
+            Complete these steps to start generating content
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex items-center gap-3">
+            <Badge variant="default">1</Badge>
+            <span>Install the GitHub App on your repository</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <Badge variant="secondary">2</Badge>
+            <span>Complete onboarding preferences</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <Badge variant="secondary">3</Badge>
+            <span>Add your LLM API key</span>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
