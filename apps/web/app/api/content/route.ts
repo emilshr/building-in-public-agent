@@ -1,24 +1,14 @@
 import { randomUUID } from "node:crypto";
 import { content, db, notification, repo } from "@repo/db";
-import { and, desc, eq } from "drizzle-orm";
-import { Inngest } from "inngest";
+import { and, desc, eq, inArray } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { getCurrentUserId } from "@/lib/session";
-import { env } from "@/src/env";
-
-const inngest = env.INNGEST_EVENT_KEY
-  ? new Inngest({
-      id: "building-in-public-agent-web",
-      eventKey: env.INNGEST_EVENT_KEY,
-    })
-  : null;
 
 const createSchema = z.object({
   type: z.string().min(1),
   body: z.string().min(1),
   repoId: z.string().min(1),
-  scheduledFor: z.string().datetime().optional(),
 });
 
 export async function GET(request: Request) {
@@ -27,6 +17,22 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const url = new URL(request.url);
   const status = url.searchParams.get("status");
+
+  // Legacy cleanup from API-based publishing: keep actionable drafts in approved.
+  await db
+    .update(content)
+    .set({
+      status: "approved",
+      scheduledFor: null,
+      errorMessage: null,
+      updatedAt: new Date(),
+    })
+    .where(
+      and(
+        eq(content.userId, userId),
+        inArray(content.status, ["scheduled", "failed", "posted"]),
+      ),
+    );
 
   const records = await db.query.content.findMany({
     where:
@@ -64,10 +70,8 @@ export async function POST(request: Request) {
     repoId: payload.data.repoId,
     type: payload.data.type,
     body: payload.data.body,
-    status: payload.data.scheduledFor ? "scheduled" : "draft",
-    scheduledFor: payload.data.scheduledFor
-      ? new Date(payload.data.scheduledFor)
-      : null,
+    status: "draft",
+    scheduledFor: null,
     summaryVersion: repoRecord.summaryVersion,
   });
 
@@ -80,13 +84,12 @@ export async function PATCH(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const body = (await request.json()) as {
     id: string;
-    action: "approve" | "discard" | "schedule";
-    scheduledFor?: string;
+    action: "approve" | "discard";
   };
 
   const record = await db.query.content.findFirst({
     where: and(eq(content.id, body.id), eq(content.userId, userId)),
-    columns: { id: true, status: true },
+    columns: { id: true },
   });
   if (!record)
     return NextResponse.json({ error: "Not found" }, { status: 404 });
@@ -96,26 +99,11 @@ export async function PATCH(request: Request) {
       .update(content)
       .set({ status: "approved", updatedAt: new Date() })
       .where(eq(content.id, body.id));
-  } else if (body.action === "discard") {
+  } else {
     await db
       .update(content)
       .set({ status: "discarded", updatedAt: new Date() })
       .where(eq(content.id, body.id));
-  } else {
-    await db
-      .update(content)
-      .set({
-        status: "scheduled",
-        scheduledFor: body.scheduledFor ? new Date(body.scheduledFor) : null,
-        updatedAt: new Date(),
-      })
-      .where(eq(content.id, body.id));
-    if (inngest) {
-      await inngest.send({
-        name: "content.publish",
-        data: { contentId: body.id, userId },
-      });
-    }
   }
 
   return NextResponse.json({ ok: true });

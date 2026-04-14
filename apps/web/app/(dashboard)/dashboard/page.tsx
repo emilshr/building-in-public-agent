@@ -94,6 +94,10 @@ export default function DashboardPage() {
           Manage API keys
         </Link>
         <br />
+        <Link className="text-sm underline" href="/dashboard/settings/twitter">
+          X posting settings
+        </Link>
+        <br />
         <Link className="text-sm underline" href="/step/1">
           Continue onboarding
         </Link>

@@ -7,7 +7,6 @@ const envSchema = z.object({
   INNGEST_EVENT_KEY: z.string().optional(),
   INNGEST_SIGNING_KEY: z.string().optional(),
   ENCRYPTION_SECRET: z.string().min(32),
-  TWITTER_API_BASE_URL: z.string().url().default("https://api.twitter.com/2"),
 });
 
 export const env = envSchema.parse(process.env);

@@ -3,7 +3,6 @@ import express from "express";
 import { serve } from "inngest/express";
 import { env } from "./env.js";
 import { generateContent } from "./functions/generate-content.js";
-import { publishContent } from "./functions/publish-content.js";
 import { reanalyzeRepoOnPush } from "./functions/reanalyze-repo.js";
 import { setupScheduleOnOnboarding } from "./functions/setup-schedule.js";
 import { inngest } from "./inngest.js";
@@ -26,7 +25,6 @@ app.use(
       reanalyzeRepoOnPush,
       setupScheduleOnOnboarding,
       generateContent,
-      publishContent,
     ],
   }),
 );

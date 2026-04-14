@@ -10,7 +10,7 @@ export default function OnboardingLayout({
       <div className="mb-8">
         <h1 className="text-2xl font-semibold">Finish setup</h1>
         <p className="text-sm text-muted-foreground">
-          Complete onboarding to enable scheduled content generation.
+          Complete onboarding to start generating ready-to-post content drafts.
         </p>
       </div>
       {children}

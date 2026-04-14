@@ -1,12 +1,5 @@
 // Content status state machine
-export const CONTENT_STATUSES = [
-  "draft",
-  "approved",
-  "scheduled",
-  "posted",
-  "failed",
-  "discarded",
-] as const;
+export const CONTENT_STATUSES = ["draft", "approved", "discarded"] as const;
 export type ContentStatus = (typeof CONTENT_STATUSES)[number];
 
 // Content types
@@ -49,9 +42,6 @@ export type GenerationLogStatus = (typeof GENERATION_LOG_STATUSES)[number];
 // Valid content status transitions
 export const VALID_TRANSITIONS: Record<ContentStatus, ContentStatus[]> = {
   draft: ["approved", "discarded"],
-  approved: ["scheduled", "discarded"],
-  scheduled: ["posted", "failed"],
-  posted: [],
-  failed: ["scheduled"],
+  approved: ["discarded"],
   discarded: [],
 };
