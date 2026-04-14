@@ -56,33 +56,65 @@ export default function ApiKeysSettingsPage() {
   }
 
   return (
-    <div className="space-y-4 p-8">
-      <h1 className="text-xl font-semibold">API Keys</h1>
-      <div className="flex gap-2">
-        <Input
-          value={provider}
-          onChange={(event) => setProvider(event.target.value)}
-          placeholder="Provider: openai"
-        />
-        <Input
-          value={key}
-          onChange={(event) => setKey(event.target.value)}
-          placeholder="API key"
-          type="password"
-        />
-        <Button onClick={saveKey}>Save</Button>
-      </div>
-      {message ? (
-        <p className="text-sm text-muted-foreground">{message}</p>
-      ) : null}
-      <div className="space-y-2">
+    <div className="space-y-6">
+      <section className="rounded-2xl border border-zinc-800 bg-zinc-950/70 p-6">
+        <p className="text-xs uppercase tracking-[0.24em] text-zinc-400">
+          Integrations
+        </p>
+        <h2 className="mt-2 text-2xl font-semibold text-zinc-50">API Keys</h2>
+        <p className="mt-2 text-sm text-zinc-300">
+          Store provider keys securely so content generation can run end-to-end.
+        </p>
+      </section>
+
+      <section className="space-y-4 rounded-2xl border border-zinc-800 bg-zinc-950/70 p-6">
+        <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-300">
+          Add key
+        </h3>
+        <div className="flex flex-col gap-2 md:flex-row">
+          <Input
+            className="border-zinc-700 bg-zinc-900/70 text-zinc-100"
+            value={provider}
+            onChange={(event) => setProvider(event.target.value)}
+            placeholder="Provider: openai"
+          />
+          <Input
+            className="border-zinc-700 bg-zinc-900/70 text-zinc-100"
+            value={key}
+            onChange={(event) => setKey(event.target.value)}
+            placeholder="API key"
+            type="password"
+          />
+          <Button
+            className="bg-zinc-100 text-zinc-950 hover:bg-zinc-200"
+            onClick={saveKey}
+          >
+            Save
+          </Button>
+        </div>
+      </section>
+
+      {message ? <p className="text-sm text-zinc-400">{message}</p> : null}
+
+      <section className="space-y-2 rounded-2xl border border-zinc-800 bg-zinc-950/70 p-6">
+        <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-300">
+          Active keys
+        </h3>
+        {keys.length === 0 ? (
+          <p className="rounded-xl border border-dashed border-zinc-700 bg-zinc-900/50 p-4 text-sm text-zinc-400">
+            No API keys saved yet.
+          </p>
+        ) : null}
         {keys.map((record) => (
-          <div key={record.id} className="rounded border p-2 text-sm">
+          <div
+            key={record.id}
+            className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-3 text-sm text-zinc-300"
+          >
             {record.provider} {record.maskedKey} (
             {record.isValid ? "valid" : "invalid"})
           </div>
         ))}
-      </div>
+      </section>
     </div>
   );
 }

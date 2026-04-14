@@ -15,14 +15,27 @@ export default async function CalendarPage() {
   });
 
   return (
-    <div className="mx-auto max-w-4xl space-y-4 p-8">
-      <h1 className="text-xl font-semibold">Ready to post</h1>
-      <ContentCalendar
-        items={items.map((item) => ({
-          ...item,
-          updatedAt: item.updatedAt?.toISOString() ?? null,
-        }))}
-      />
+    <div className="space-y-6">
+      <section className="rounded-2xl border border-zinc-800 bg-zinc-950/70 p-6">
+        <p className="text-xs uppercase tracking-[0.24em] text-zinc-400">
+          Publishing
+        </p>
+        <h2 className="mt-2 text-2xl font-semibold text-zinc-50">
+          Ready to post
+        </h2>
+        <p className="mt-2 text-sm text-zinc-300">
+          Approved content appears here so you can plan distribution and publish
+          without context switching.
+        </p>
+      </section>
+      <section className="rounded-2xl border border-zinc-800 bg-zinc-950/70 p-6">
+        <ContentCalendar
+          items={items.map((item) => ({
+            ...item,
+            updatedAt: item.updatedAt?.toISOString() ?? null,
+          }))}
+        />
+      </section>
     </div>
   );
 }

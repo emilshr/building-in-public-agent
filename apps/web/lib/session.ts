@@ -1,19 +1,10 @@
-import { db, session } from "@repo/db";
-import { and, eq, gt } from "drizzle-orm";
-import { cookies } from "next/headers";
+import { headers } from "next/headers";
+import { auth } from "@/lib/auth";
 
 export async function getCurrentUserId() {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("better-auth.session_token")?.value;
-
-  if (!token) {
-    return null;
-  }
-
-  const activeSession = await db.query.session.findFirst({
-    where: and(eq(session.token, token), gt(session.expiresAt, new Date())),
-    columns: { userId: true },
+  const session = await auth.api.getSession({
+    headers: await headers(),
   });
 
-  return activeSession?.userId ?? null;
+  return session?.user?.id ?? null;
 }

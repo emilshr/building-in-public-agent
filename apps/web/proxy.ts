@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
+import { getSessionToken } from "@/lib/session-token";
 
 const publicPaths = ["/", "/api/auth", "/login"];
 
@@ -14,8 +15,9 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Check for session token cookie (Better Auth uses __session or better-auth.session_token)
-  const sessionToken = request.cookies.get("better-auth.session_token")?.value;
+  const sessionToken = getSessionToken(
+    (name) => request.cookies.get(name)?.value,
+  );
 
   if (!sessionToken) {
     const loginUrl = new URL("/login", request.url);
