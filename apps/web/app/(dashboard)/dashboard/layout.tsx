@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { Badge } from "@/components/ui/badge";
 import { getCurrentUserId } from "@/lib/session";
 
 const navItems = [
@@ -23,28 +22,25 @@ export default async function DashboardLayout({
   }
 
   return (
-    <main className="min-h-screen bg-[#090c14] text-zinc-100">
-      <div className="mx-auto max-w-7xl px-6 py-8 md:px-10">
-        <header className="mb-8 rounded-2xl border border-zinc-800/80 bg-zinc-950/80 p-4 shadow-[0_22px_60px_rgba(0,0,0,0.4)] backdrop-blur">
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <main className="min-h-screen bg-background text-foreground">
+      <div className="mx-auto max-w-6xl px-6 py-8 md:px-10">
+        <header className="mb-10">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-xs uppercase tracking-[0.28em] text-zinc-400">
-                Building in Public Agent
-              </p>
-              <h1 className="mt-1 text-lg font-semibold text-zinc-100">
-                Growth Operations Dashboard
+              <h1 className="font-heading text-2xl font-bold tracking-tight">
+                Building in Public
               </h1>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Content operations dashboard
+              </p>
             </div>
-            <Badge className="bg-emerald-500/15 text-emerald-200">
-              Workspace active
-            </Badge>
           </div>
-          <nav className="mt-4 flex flex-wrap gap-2">
+          <nav className="mt-5 flex gap-1 border-b border-border">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="rounded-lg border border-zinc-800 bg-zinc-900/70 px-3 py-1.5 text-xs font-medium text-zinc-300 transition hover:border-zinc-700 hover:text-zinc-100"
+                className="border-b-2 border-transparent px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:border-foreground/20 hover:text-foreground"
               >
                 {item.label}
               </Link>

@@ -42,24 +42,20 @@ export default function DashboardPage() {
   const draftCount = items.filter((item) => item.status === "draft").length;
 
   return (
-    <div className="space-y-6">
-      <section className="relative overflow-hidden rounded-3xl border border-zinc-800/80 bg-zinc-950/80 p-6 shadow-[0_24px_70px_rgba(0,0,0,0.4)] md:p-8">
-        <div className="pointer-events-none absolute -left-10 top-0 h-48 w-48 rounded-full bg-cyan-500/20 blur-3xl" />
-        <div className="pointer-events-none absolute -right-10 bottom-0 h-44 w-44 rounded-full bg-blue-500/20 blur-3xl" />
-        <div className="relative flex flex-wrap items-start justify-between gap-6">
-          <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-zinc-400">
+    <div className="space-y-10">
+      {/* Hero section */}
+      <section>
+        <div className="flex flex-wrap items-start justify-between gap-6">
+          <div className="max-w-xl">
+            <h2 className="font-heading text-3xl font-bold tracking-tight">
               Content pipeline
-            </p>
-            <h2 className="mt-2 text-3xl font-semibold text-zinc-50">
-              Revenue content command center
             </h2>
-            <p className="mt-2 max-w-2xl text-sm text-zinc-300">
-              Manage your content queue, approve high-quality drafts, and
-              publish faster from one professional workspace.
+            <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+              Generate drafts from your codebase, approve the good ones, and
+              publish without context-switching.
             </p>
             {session ? (
-              <p className="mt-4 text-xs text-zinc-400">
+              <p className="mt-3 text-xs text-muted-foreground">
                 Signed in as {session.user.name ?? session.user.email}
               </p>
             ) : null}
@@ -67,7 +63,6 @@ export default function DashboardPage() {
           <div className="flex flex-wrap gap-2">
             <Button
               disabled={isGenerating}
-              className="bg-zinc-100 text-zinc-950 hover:bg-zinc-200"
               onClick={async () => {
                 setIsGenerating(true);
                 await fetch("/api/content/generate", { method: "POST" });
@@ -75,11 +70,10 @@ export default function DashboardPage() {
                 setIsGenerating(false);
               }}
             >
-              {isGenerating ? "Generating..." : "Generate Content"}
+              {isGenerating ? "Generating..." : "Generate content"}
             </Button>
             <Button
               variant="outline"
-              className="border-zinc-700 bg-zinc-900 text-zinc-100 hover:bg-zinc-800"
               onClick={async () => {
                 await authClient.signOut();
                 window.location.href = "/login";
@@ -91,82 +85,79 @@ export default function DashboardPage() {
         </div>
       </section>
 
-      <section className="grid gap-4 md:grid-cols-3">
-        <div className="rounded-2xl border border-zinc-800 bg-zinc-950/70 p-5">
-          <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">
+      {/* Stats row */}
+      <section className="grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-3">
+        <div className="bg-card px-5 py-4">
+          <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
             Total items
           </p>
-          <p className="mt-2 text-3xl font-semibold text-zinc-50">
-            {items.length}
-          </p>
+          <p className="mt-1 font-heading text-2xl font-bold">{items.length}</p>
         </div>
-        <div className="rounded-2xl border border-zinc-800 bg-zinc-950/70 p-5">
-          <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">
+        <div className="bg-card px-5 py-4">
+          <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
             Approved
           </p>
-          <p className="mt-2 text-3xl font-semibold text-emerald-300">
+          <p className="mt-1 font-heading text-2xl font-bold text-primary">
             {approvedCount}
           </p>
         </div>
-        <div className="rounded-2xl border border-zinc-800 bg-zinc-950/70 p-5">
-          <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">
+        <div className="bg-card px-5 py-4">
+          <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
             Drafts pending
           </p>
-          <p className="mt-2 text-3xl font-semibold text-amber-300">
-            {draftCount}
-          </p>
+          <p className="mt-1 font-heading text-2xl font-bold">{draftCount}</p>
         </div>
       </section>
 
-      <section className="grid gap-4 lg:grid-cols-[1.25fr_2fr]">
-        <div className="rounded-2xl border border-zinc-800 bg-zinc-950/70 p-5">
-          <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">
-            Workspace shortcuts
+      {/* Main content area */}
+      <section className="grid gap-8 lg:grid-cols-[280px_1fr]">
+        {/* Sidebar shortcuts */}
+        <div>
+          <p className="mb-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+            Quick links
           </p>
-          <div className="mt-4 space-y-2">
-            <Link
-              className="block rounded-xl border border-zinc-800 bg-zinc-900/80 px-3 py-2 text-sm text-zinc-200 transition hover:border-zinc-700 hover:text-zinc-100"
-              href="/dashboard/repos"
-            >
-              Manage repositories
-            </Link>
-            <Link
-              className="block rounded-xl border border-zinc-800 bg-zinc-900/80 px-3 py-2 text-sm text-zinc-200 transition hover:border-zinc-700 hover:text-zinc-100"
-              href="/dashboard/settings/keys"
-            >
-              Manage API keys
-            </Link>
-            <Link
-              className="block rounded-xl border border-zinc-800 bg-zinc-900/80 px-3 py-2 text-sm text-zinc-200 transition hover:border-zinc-700 hover:text-zinc-100"
-              href="/dashboard/settings/twitter"
-            >
-              X posting settings
-            </Link>
-            <Link
-              className="block rounded-xl border border-zinc-800 bg-zinc-900/80 px-3 py-2 text-sm text-zinc-200 transition hover:border-zinc-700 hover:text-zinc-100"
-              href="/step/1"
-            >
-              Continue onboarding
-            </Link>
-          </div>
+          <nav className="space-y-1">
+            {[
+              { href: "/dashboard/repos", label: "Manage repositories" },
+              { href: "/dashboard/settings/keys", label: "API keys" },
+              {
+                href: "/dashboard/settings/twitter",
+                label: "X posting settings",
+              },
+              { href: "/step/1", label: "Continue onboarding" },
+            ].map((link) => (
+              <Link
+                key={link.href}
+                className="block rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                href={link.href}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
         </div>
 
-        <div className="rounded-2xl border border-zinc-800 bg-zinc-950/70 p-5">
+        {/* Review queue */}
+        <div>
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-300">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
               Review queue
             </h3>
             <ContentFilters status={status} setStatus={setStatus} />
           </div>
           <div className="space-y-3">
             {isPending ? (
-              <p className="text-sm text-zinc-400">Loading queue...</p>
+              <p className="text-sm text-muted-foreground">Loading queue...</p>
             ) : null}
             {!isPending && items.length === 0 ? (
-              <p className="rounded-xl border border-dashed border-zinc-700 bg-zinc-900/50 p-4 text-sm text-zinc-400">
-                No content in this filter yet. Generate content to fill your
-                review pipeline.
-              </p>
+              <div className="rounded-xl border border-dashed border-border bg-muted/50 px-5 py-8 text-center">
+                <p className="text-sm font-medium text-foreground">
+                  No content yet
+                </p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Hit "Generate content" to fill your review pipeline.
+                </p>
+              </div>
             ) : null}
             {items.map((item) => (
               <ContentCard

@@ -10,26 +10,32 @@ type CalendarItem = {
 export function ContentCalendar({ items }: { items: CalendarItem[] }) {
   if (items.length === 0) {
     return (
-      <p className="rounded-xl border border-dashed border-zinc-700 bg-zinc-900/50 p-4 text-sm text-zinc-400">
-        No approved content yet.
-      </p>
+      <div className="rounded-xl border border-dashed border-border bg-muted/50 px-5 py-8 text-center">
+        <p className="text-sm font-medium text-foreground">
+          No approved content yet
+        </p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Approve drafts from the review queue to see them here.
+        </p>
+      </div>
     );
   }
 
   return (
-    <div className="space-y-2">
+    <div className="divide-y divide-border rounded-xl border border-border">
       {items.map((item) => (
-        <div
-          key={item.id}
-          className="rounded-xl border border-zinc-800 bg-zinc-900/65 p-3"
-        >
-          <p className="text-xs text-zinc-500">
+        <div key={item.id} className="px-4 py-3">
+          <p className="text-xs text-muted-foreground">
             {item.updatedAt
-              ? `Updated ${new Date(item.updatedAt).toLocaleString()}`
-              : "Recently updated"}{" "}
-            · {item.status}
+              ? new Date(item.updatedAt).toLocaleDateString(undefined, {
+                  month: "short",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "2-digit",
+                })
+              : "Recently updated"}
           </p>
-          <p className="text-sm text-zinc-200">{item.body}</p>
+          <p className="mt-1 text-sm leading-relaxed">{item.body}</p>
         </div>
       ))}
     </div>

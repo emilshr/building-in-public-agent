@@ -5,8 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-heading: var(--font-sans);
-  --font-sans: var(--font-sans);
+  --font-heading: var(--font-display);
+  --font-sans: var(--font-body);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -47,73 +47,81 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* ------------------------------------------------------------------
+   Light theme (default) — warm cream neutrals, rosso corsa accent
+   Neutrals tinted toward hue 55 (warm amber) for cohesion.
+   Primary accent at hue 27 (red) — the Ferrari energy.
+   ------------------------------------------------------------------ */
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --background: oklch(0.98 0.004 55);
+  --foreground: oklch(0.15 0.008 55);
+  --card: oklch(0.995 0.002 55);
+  --card-foreground: oklch(0.15 0.008 55);
+  --popover: oklch(0.995 0.002 55);
+  --popover-foreground: oklch(0.15 0.008 55);
+  --primary: oklch(0.49 0.2 27);
+  --primary-foreground: oklch(0.98 0.005 55);
+  --secondary: oklch(0.945 0.008 55);
+  --secondary-foreground: oklch(0.22 0.01 55);
+  --muted: oklch(0.945 0.008 55);
+  --muted-foreground: oklch(0.48 0.012 55);
+  --accent: oklch(0.945 0.008 55);
+  --accent-foreground: oklch(0.22 0.01 55);
+  --destructive: oklch(0.55 0.22 29);
+  --border: oklch(0.905 0.006 55);
+  --input: oklch(0.905 0.006 55);
+  --ring: oklch(0.49 0.2 27);
+  --chart-1: oklch(0.49 0.2 27);
+  --chart-2: oklch(0.6 0.12 55);
+  --chart-3: oklch(0.45 0.06 55);
+  --chart-4: oklch(0.35 0.04 55);
+  --chart-5: oklch(0.25 0.02 55);
+  --radius: 0.5rem;
+  --sidebar: oklch(0.97 0.005 55);
+  --sidebar-foreground: oklch(0.15 0.008 55);
+  --sidebar-primary: oklch(0.49 0.2 27);
+  --sidebar-primary-foreground: oklch(0.98 0.005 55);
+  --sidebar-accent: oklch(0.945 0.008 55);
+  --sidebar-accent-foreground: oklch(0.22 0.01 55);
+  --sidebar-border: oklch(0.905 0.006 55);
+  --sidebar-ring: oklch(0.49 0.2 27);
 }
 
+/* ------------------------------------------------------------------
+   Dark theme — warm dark neutrals, brighter rosso corsa accent
+   ------------------------------------------------------------------ */
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --background: oklch(0.145 0.008 55);
+  --foreground: oklch(0.95 0.006 55);
+  --card: oklch(0.185 0.01 55);
+  --card-foreground: oklch(0.95 0.006 55);
+  --popover: oklch(0.185 0.01 55);
+  --popover-foreground: oklch(0.95 0.006 55);
+  --primary: oklch(0.64 0.19 27);
+  --primary-foreground: oklch(0.13 0.005 55);
+  --secondary: oklch(0.22 0.01 55);
+  --secondary-foreground: oklch(0.92 0.006 55);
+  --muted: oklch(0.22 0.01 55);
+  --muted-foreground: oklch(0.62 0.008 55);
+  --accent: oklch(0.22 0.01 55);
+  --accent-foreground: oklch(0.92 0.006 55);
+  --destructive: oklch(0.62 0.2 29);
+  --border: oklch(0.25 0.008 55);
+  --input: oklch(0.25 0.008 55);
+  --ring: oklch(0.64 0.19 27);
+  --chart-1: oklch(0.64 0.19 27);
+  --chart-2: oklch(0.55 0.1 55);
+  --chart-3: oklch(0.42 0.05 55);
+  --chart-4: oklch(0.35 0.04 55);
+  --chart-5: oklch(0.28 0.02 55);
+  --sidebar: oklch(0.165 0.008 55);
+  --sidebar-foreground: oklch(0.95 0.006 55);
+  --sidebar-primary: oklch(0.64 0.19 27);
+  --sidebar-primary-foreground: oklch(0.13 0.005 55);
+  --sidebar-accent: oklch(0.22 0.01 55);
+  --sidebar-accent-foreground: oklch(0.92 0.006 55);
+  --sidebar-border: oklch(0.25 0.008 55);
+  --sidebar-ring: oklch(0.64 0.19 27);
 }
 
 @layer base {
