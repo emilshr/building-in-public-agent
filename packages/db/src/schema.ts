@@ -119,6 +119,32 @@ export const userPreferences = pgTable("user_preferences", {
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
+export const repoOnboardingPreferences = pgTable(
+  "repo_onboarding_preferences",
+  {
+    id: text("id").primaryKey(),
+    repoId: text("repo_id")
+      .notNull()
+      .unique()
+      .references(() => repo.id, { onDelete: "cascade" }),
+    ownerUserId: text("owner_user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    productName: text("product_name"),
+    productDescription: text("product_description"),
+    targetAudience: text("target_audience"),
+    contentTypes: text("content_types"),
+    tone: text("tone"),
+    generationFrequency: text("generation_frequency").default("weekly"),
+    timezone: text("timezone").default("UTC"),
+    apiProvider: text("api_provider"),
+    onboardingStep: integer("onboarding_step").default(0),
+    onboardingComplete: boolean("onboarding_complete").notNull().default(false),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+    updatedAt: timestamp("updated_at").notNull().defaultNow(),
+  },
+);
+
 export const twitterConnection = pgTable("twitter_connection", {
   id: text("id").primaryKey(),
   userId: text("user_id")
@@ -223,6 +249,7 @@ export const repoRelations = relations(repo, ({ one, many }) => ({
     fields: [repo.githubInstallationId],
     references: [githubInstallation.id],
   }),
+  onboardingPreferences: one(repoOnboardingPreferences),
   content: many(content),
   contentGenerationLogs: many(contentGenerationLog),
 }));
@@ -236,6 +263,20 @@ export const userPreferencesRelations = relations(
   ({ one }) => ({
     user: one(user, {
       fields: [userPreferences.userId],
+      references: [user.id],
+    }),
+  }),
+);
+
+export const repoOnboardingPreferencesRelations = relations(
+  repoOnboardingPreferences,
+  ({ one }) => ({
+    repo: one(repo, {
+      fields: [repoOnboardingPreferences.repoId],
+      references: [repo.id],
+    }),
+    owner: one(user, {
+      fields: [repoOnboardingPreferences.ownerUserId],
       references: [user.id],
     }),
   }),

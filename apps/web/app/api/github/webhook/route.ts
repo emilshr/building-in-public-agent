@@ -28,6 +28,8 @@ export async function POST(request: Request) {
   const signature = request.headers.get("x-hub-signature-256");
   const body = await request.text();
 
+  console.log("WEBHOOK RECEIVED", { event, signature, body });
+
   if (!verifyGitHubWebhookSignature(body, signature)) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
   }

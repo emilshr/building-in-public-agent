@@ -124,10 +124,10 @@ export default function DashboardPage() {
                 href: "/dashboard/settings/twitter",
                 label: "X posting settings",
               },
-              { href: "/step/1", label: "Continue onboarding" },
+              { href: "/dashboard/repos", label: "Continue onboarding" },
             ].map((link) => (
               <Link
-                key={link.href}
+                key={link.label}
                 className="block rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                 href={link.href}
               >

@@ -9,6 +9,7 @@ export const ONBOARDING_STEP_MIN = 1;
 export const ONBOARDING_STEP_MAX = 6;
 
 export const onboardingPayloadSchema = z.object({
+  repoId: z.string().min(1),
   step: z.number().int().min(ONBOARDING_STEP_MIN).max(ONBOARDING_STEP_MAX),
   productName: z.string().min(1).optional(),
   productDescription: z.string().min(1).optional(),

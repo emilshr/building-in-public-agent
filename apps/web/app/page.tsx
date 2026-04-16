@@ -1,10 +1,16 @@
-import { db, githubInstallation, repo } from "@repo/db";
-import { and, desc, eq } from "drizzle-orm";
+import {
+  db,
+  githubInstallation,
+  repo,
+  repoOnboardingPreferences,
+} from "@repo/db";
+import { and, desc, eq, inArray } from "drizzle-orm";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { getInstallUrl } from "@/lib/github";
+import { getInstallationSettingsUrl, getInstallUrl } from "@/lib/github";
+import { getRepoDestination } from "@/lib/repo-onboarding";
 import { getCurrentUserId } from "@/lib/session";
 
 type HomeProps = {
@@ -54,6 +60,26 @@ export default async function Home({ searchParams }: HomeProps) {
   ]);
 
   const hasInstallation = Boolean(installation);
+  const appHref = installation
+    ? getInstallationSettingsUrl(installation.installationId)
+    : getInstallUrl();
+  const onboardingStates =
+    connectedRepos.length > 0
+      ? await db.query.repoOnboardingPreferences.findMany({
+          where: inArray(
+            repoOnboardingPreferences.repoId,
+            connectedRepos.map((connectedRepo) => connectedRepo.id),
+          ),
+          columns: {
+            repoId: true,
+            onboardingComplete: true,
+            ownerUserId: true,
+          },
+        })
+      : [];
+  const onboardingByRepoId = new Map(
+    onboardingStates.map((state) => [state.repoId, state]),
+  );
   const reposLabel =
     connectedRepos.length === 1
       ? "1 repository"
@@ -72,8 +98,14 @@ export default async function Home({ searchParams }: HomeProps) {
             content dashboard to start generating.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Link href={getInstallUrl()}>
-              <Button>Install GitHub App</Button>
+            <Link
+              href={appHref}
+              target={hasInstallation ? "_blank" : undefined}
+              rel="noopener noreferrer"
+            >
+              <Button>
+                {hasInstallation ? "Manage GitHub App" : "Install GitHub App"}
+              </Button>
             </Link>
             <Link href="/dashboard">
               <Button variant="outline">Open content dashboard</Button>
@@ -154,9 +186,14 @@ export default async function Home({ searchParams }: HomeProps) {
           ) : (
             <div className="divide-y divide-border rounded-xl border border-border">
               {connectedRepos.map((connectedRepo) => (
-                <div
+                <Link
                   key={connectedRepo.id}
-                  className="flex flex-wrap items-center justify-between gap-3 px-4 py-3"
+                  href={getRepoDestination({
+                    repoRecord: connectedRepo,
+                    onboardingState: onboardingByRepoId.get(connectedRepo.id),
+                    currentUserId: userId,
+                  })}
+                  className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 transition-colors hover:bg-muted/40"
                 >
                   <div>
                     <p className="text-sm font-medium">
@@ -166,8 +203,13 @@ export default async function Home({ searchParams }: HomeProps) {
                       {connectedRepo.defaultBranch}
                     </p>
                   </div>
-                  <Badge variant="secondary">Installed</Badge>
-                </div>
+                  <Badge variant="secondary">
+                    {onboardingByRepoId.get(connectedRepo.id)
+                      ?.onboardingComplete
+                      ? "Ready"
+                      : "Onboarding required"}
+                  </Badge>
+                </Link>
               ))}
             </div>
           )}

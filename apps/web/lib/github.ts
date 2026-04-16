@@ -22,6 +22,10 @@ export function getInstallUrl() {
   return `https://github.com/apps/${env.GITHUB_APP_SLUG}/installations/new`;
 }
 
+export function getInstallationSettingsUrl(installationId: number) {
+  return `https://github.com/settings/installations/${installationId}`;
+}
+
 export function verifyGitHubWebhookSignature(
   payload: string,
   signatureHeader: string | null,
@@ -47,4 +51,8 @@ export function verifyGitHubWebhookSignature(
 
 export async function getInstallationOctokit(installationId: number) {
   return getGithubApp().getInstallationOctokit(installationId);
+}
+
+export function getAppOctokit() {
+  return getGithubApp().octokit;
 }

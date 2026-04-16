@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
-import { db, userPreferences } from "@repo/db";
-import { eq } from "drizzle-orm";
+import { db, repo, repoOnboardingPreferences } from "@repo/db";
+import { and, eq } from "drizzle-orm";
 import { Inngest } from "inngest";
 import { NextResponse } from "next/server";
 import { onboardingPayloadSchema } from "@/lib/onboarding";
@@ -14,14 +14,38 @@ const inngest = env.INNGEST_EVENT_KEY
     })
   : null;
 
-export async function GET() {
+export async function GET(request: Request) {
   const userId = await getCurrentUserId();
   if (!userId)
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  const prefs = await db.query.userPreferences.findFirst({
-    where: eq(userPreferences.userId, userId),
+
+  const repoId = new URL(request.url).searchParams.get("repoId");
+  if (!repoId) {
+    return NextResponse.json({ error: "repoId is required" }, { status: 400 });
+  }
+
+  const repoRecord = await db.query.repo.findFirst({
+    where: eq(repo.id, repoId),
+    columns: { id: true, userId: true },
   });
-  return NextResponse.json({ preferences: prefs ?? null });
+  if (!repoRecord) {
+    return NextResponse.json(
+      { error: "Repository not found" },
+      { status: 404 },
+    );
+  }
+  if (repoRecord.userId !== userId) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
+  const prefs = await db.query.repoOnboardingPreferences.findFirst({
+    where: eq(repoOnboardingPreferences.repoId, repoId),
+  });
+
+  return NextResponse.json({
+    preferences: prefs ?? null,
+    isOwner: repoRecord.userId === userId,
+  });
 }
 
 export async function POST(request: Request) {
@@ -33,14 +57,35 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
   }
 
-  const existing = await db.query.userPreferences.findFirst({
-    where: eq(userPreferences.userId, userId),
+  const repoRecord = await db.query.repo.findFirst({
+    where: eq(repo.id, parsed.data.repoId),
+    columns: { id: true, userId: true },
+  });
+  if (!repoRecord) {
+    return NextResponse.json(
+      { error: "Repository not found" },
+      { status: 404 },
+    );
+  }
+  if (repoRecord.userId !== userId) {
+    return NextResponse.json(
+      { error: "Only repository owner can update onboarding" },
+      { status: 403 },
+    );
+  }
+
+  const existing = await db.query.repoOnboardingPreferences.findFirst({
+    where: eq(repoOnboardingPreferences.repoId, parsed.data.repoId),
     columns: { id: true },
   });
 
   const update = {
+    productName: parsed.data.productName,
+    productDescription: parsed.data.productDescription,
+    targetAudience: parsed.data.targetAudience,
     onboardingStep: parsed.data.step,
     tone: parsed.data.tone,
+    apiProvider: parsed.data.apiProvider,
     generationFrequency: parsed.data.generationFrequency,
     timezone: parsed.data.timezone,
     contentTypes: parsed.data.contentTypes
@@ -51,15 +96,20 @@ export async function POST(request: Request) {
 
   if (existing) {
     await db
-      .update(userPreferences)
+      .update(repoOnboardingPreferences)
       .set(update)
-      .where(eq(userPreferences.id, existing.id));
+      .where(eq(repoOnboardingPreferences.id, existing.id));
   } else {
-    await db.insert(userPreferences).values({
+    await db.insert(repoOnboardingPreferences).values({
       id: randomUUID(),
-      userId,
+      repoId: parsed.data.repoId,
+      ownerUserId: repoRecord.userId,
+      productName: parsed.data.productName ?? null,
+      productDescription: parsed.data.productDescription ?? null,
+      targetAudience: parsed.data.targetAudience ?? null,
       onboardingStep: parsed.data.step,
       tone: parsed.data.tone ?? null,
+      apiProvider: parsed.data.apiProvider ?? null,
       generationFrequency: parsed.data.generationFrequency ?? "weekly",
       timezone: parsed.data.timezone ?? "UTC",
       contentTypes: parsed.data.contentTypes
@@ -70,16 +120,24 @@ export async function POST(request: Request) {
 
   if (parsed.data.step === 6) {
     await db
-      .update(userPreferences)
+      .update(repoOnboardingPreferences)
       .set({
         onboardingComplete: true,
         onboardingStep: 6,
         updatedAt: new Date(),
       })
-      .where(eq(userPreferences.userId, userId));
+      .where(
+        and(
+          eq(repoOnboardingPreferences.repoId, parsed.data.repoId),
+          eq(repoOnboardingPreferences.ownerUserId, userId),
+        ),
+      );
 
     if (inngest) {
-      await inngest.send({ name: "user.onboarded", data: { userId } });
+      await inngest.send({
+        name: "user.onboarded",
+        data: { userId, repoId: parsed.data.repoId },
+      });
     }
   }
 

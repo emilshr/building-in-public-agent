@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import { db, githubInstallation, repo } from "@repo/db";
 import { and, eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
-import { getInstallationOctokit } from "@/lib/github";
+import { getAppOctokit, getInstallationOctokit } from "@/lib/github";
 import { getCurrentUserId } from "@/lib/session";
 
 export async function GET(request: Request) {
@@ -27,14 +27,27 @@ export async function GET(request: Request) {
     );
   }
 
-  const octokit = await getInstallationOctokit(installationId);
-  const installationResponse = await octokit.request("GET /installation");
-  const reposResponse = await octokit.request(
+  const appOctokit = getAppOctokit();
+  const installationResponse = await appOctokit.request(
+    "GET /app/installations/{installation_id}",
+    {
+      installation_id: installationId,
+    },
+  );
+  const installationOctokit = await getInstallationOctokit(installationId);
+  const reposResponse = await installationOctokit.request(
     "GET /installation/repositories",
     {
       per_page: 100,
     },
   );
+  const installationAccount = installationResponse.data.account;
+  const accountLogin =
+    installationAccount && "login" in installationAccount
+      ? installationAccount.login
+      : installationAccount && "slug" in installationAccount
+        ? installationAccount.slug
+        : "unknown";
 
   const installationRecordId = randomUUID();
   const existingInstallation = await db.query.githubInstallation.findFirst({
@@ -48,7 +61,7 @@ export async function GET(request: Request) {
       .update(githubInstallation)
       .set({
         userId,
-        accountLogin: installationResponse.data.account?.login ?? "unknown",
+        accountLogin,
       })
       .where(eq(githubInstallation.id, existingInstallation.id));
   } else {
@@ -56,7 +69,7 @@ export async function GET(request: Request) {
       id: installationRecordId,
       userId,
       installationId,
-      accountLogin: installationResponse.data.account?.login ?? "unknown",
+      accountLogin,
     });
   }
 
